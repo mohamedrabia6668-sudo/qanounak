@@ -58,6 +58,8 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 #lst{display:flex;flex-direction:column;min-height:0;overflow:hidden}#items{overflow:auto;flex:1}.lh{padding:10px 12px;border-bottom:1px solid #c9a24a44}.lh .btn{width:100%;padding:9px}
 .gbn{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:8px 16px;background:#2a2410;border-bottom:1px solid #c9a24a66;font-size:14px}
 .b strong{display:block;font-size:12.5px;color:var(--gold)}.tg{font-style:normal;background:var(--gold);color:#1a1305;border-radius:99px;font-size:10.5px;padding:0 8px;margin-inline-start:6px;font-weight:800}
+.tl{display:flex;gap:10px;justify-content:flex-end;margin-top:2px}.tl button{background:none;border:0;color:var(--gold);font:600 12px Cairo;cursor:pointer;padding:0;text-decoration:underline}.tl button.dn{color:#ff9d9d}
+#dl{margin-inline-start:auto;padding:4px 12px;font-size:13px;color:#ff9d9d;border-color:#ff9d9d88}
 #toast{position:fixed;inset-inline:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));margin:auto;width:fit-content;max-width:90%;background:#1b2c63;border:1px solid var(--gold);padding:8px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
 #toast.on{opacity:1}
 @media(max-width:760px){.wrap{grid-template-columns:1fr}.wrap #pane{display:none}.wrap.show #lst{display:none}.wrap.show #pane{display:flex}#bk{display:block}.b{max-width:88%}}
@@ -94,7 +96,7 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 <div class="wrap" id="wrap">
 <aside id="lst"><div class="lh"><button class="btn" id="nq" type="button">＋ استفسار جديد</button></div><div id="items"></div></aside>
 <div id="pane">
-<div class="ph"><button id="bk" aria-label="رجوع">→</button><div class="av">⚖</div><div><b id="pt">استفسار جديد</b><small id="ps"></small></div></div>
+<div class="ph"><button id="bk" aria-label="رجوع">→</button><div class="av">⚖</div><div><b id="pt">استفسار جديد</b><small id="ps"></small></div><button class="btn alt" id="dl" type="button" hidden>🗑 حذف الاستفسار</button></div>
 <div id="ms" aria-live="polite"></div>
 <div class="cp"><textarea id="tx" rows="1" placeholder="اكتب رسالتك…" aria-label="الرسالة" maxlength="2000"></textarea><button id="sd" aria-label="إرسال">➤</button></div>
 </div>
@@ -109,6 +111,7 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 /* ضع هنا بيانات مشروعك من Firebase: Project settings > Your apps > Web */
 const cfg={apiKey:"AIzaSyBhxpA-EXeFiv691TulagesWPGf7v8vvlQ",authDomain:"qanonak-c40c9.firebaseapp.com",projectId:"qanonak-c40c9",storageBucket:"qanonak-c40c9.firebasestorage.app",messagingSenderId:"1014505705461",appId:"1:1014505705461:web:eedc732d45ebb019675abc"};
 
+const ADMIN_EMAIL='mohamedrabia66680@gmail.com';
 const $=s=>document.querySelector(s);
 function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 const ERR={"auth/email-already-in-use":"هذا البريد مسجّل بالفعل، سجّل الدخول.","auth/invalid-email":"البريد الإلكتروني غير صحيح.","auth/weak-password":"كلمة المرور ضعيفة، استخدم 6 أحرف أو أكثر.","auth/user-not-found":"لا يوجد حساب بهذا البريد.","auth/wrong-password":"كلمة المرور غير صحيحة.","auth/invalid-credential":"البريد أو كلمة المرور غير صحيحة.","auth/too-many-requests":"محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة.","auth/network-request-failed":"تحقق من اتصالك بالإنترنت.","auth/popup-closed-by-user":"أُغلقت نافذة جوجل قبل إكمال الدخول.","auth/cancelled-popup-request":"تم إلغاء الطلب، حاول مرة أخرى.","auth/operation-not-allowed":"طريقة الدخول هذه غير مفعّلة في Firebase بعد.","auth/unauthorized-domain":"هذا الدومين غير مضاف في Authorized domains.","auth/account-exists-with-different-credential":"هذا البريد مسجّل بطريقة دخول أخرى.","auth/credential-already-in-use":"حساب جوجل هذا مرتبط بحساب آخر."};
@@ -140,7 +143,8 @@ if(!u){$('#auth').hidden=false;$('#app').hidden=true;$('#out').hidden=true;$('#w
 isGuest=u.isAnonymous;
 $('#auth').hidden=true;$('#app').hidden=false;$('#out').hidden=false;$('#gb').hidden=!isGuest;
 $('#who').textContent=isGuest?'زائر':(u.displayName||u.email);
-try{isAdmin=!isGuest&&(await db.doc('admins/'+u.uid).get()).exists}catch(e){isAdmin=false}
+isAdmin=!isGuest&&u.emailVerified&&(u.email||'').toLowerCase()===ADMIN_EMAIL;
+if(!isAdmin&&!isGuest){try{isAdmin=(await db.doc('admins/'+u.uid).get()).exists}catch(e){}}
 if(isAdmin)$('#who').textContent='⚖ '+$('#who').textContent+' (مستشار)';
 listThreads();newQ(false)}
 
@@ -161,14 +165,14 @@ b.onclick=()=>openThread(c);l.append(b)})},
 e=>toast('تعذر تحميل الاستفسارات. تأكد من قواعد Firestore.'))}
 
 function newQ(show){
-cur=null;unM&&unM();unM=null;$('#wrap').classList.toggle('show',!!show);
+cur=null;unM&&unM();unM=null;$('#dl').hidden=true;$('#wrap').classList.toggle('show',!!show);
 document.querySelectorAll('.ci').forEach(x=>x.classList.remove('on'));
 $('#pt').textContent='استفسار جديد';$('#ps').textContent='يجيبك المستشار أو أي عضو مسجل';
 const m=$('#ms');m.textContent='';m.append(el('p','emp','اكتب استفسارك القانوني في الأسفل.\nسيظهر للأعضاء المسجلين ليجيبوا عليه، فلا تكتب بياناتك الشخصية أو أرقام بطاقات.'))}
 $('#nq').onclick=()=>newQ(true);
 
 function openThread(c){
-cur=c.id;unM&&unM();$('#wrap').classList.add('show');
+cur=c.id;unM&&unM();$('#dl').hidden=!isAdmin;$('#wrap').classList.add('show');
 document.querySelectorAll('.ci').forEach(x=>x.classList.toggle('on',x.dataset.id===c.id));
 $('#pt').textContent=c.title||'استفسار';$('#ps').textContent='سأل: '+(c.name||'زائر');
 unM=db.collection('threads/'+c.id+'/messages').orderBy('at').onSnapshot(s=>{
@@ -178,7 +182,10 @@ const dd=t.toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'
 if(dd!==day){day=dd;box.append(el('div','dy',dd))}
 const mine=m.uid===me.uid,b=el('div','b '+(mine?'me':'ot'));
 if(!mine){const n=el('strong',0,m.name||'عضو');if(m.adm)n.append(el('em','tg','مستشار'));b.append(n)}
-b.append(el('span',0,m.text),el('i',0,t.toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit'})));box.append(b)});
+b.append(el('span',0,m.text),el('i',0,t.toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit'})+(m.edited?' · معدّلة':'')));
+if(isAdmin){const tl=el('div','tl'),eb=el('button',0,'✎ تعديل'),db_=el('button','dn','🗑 حذف');eb.type=db_.type='button';
+eb.onclick=()=>editMsg(c.id,d.id,m.text);db_.onclick=()=>delMsg(c.id,d.id);tl.append(eb,db_);b.append(tl)}
+box.append(b)});
 box.scrollTop=box.scrollHeight},e=>toast('تعذر تحميل الرسائل.'))}
 $('#bk').onclick=()=>newQ(false);
 
@@ -199,6 +206,15 @@ busy=false}
 $('#sd').onclick=send;
 $('#tx').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
 $('#tx').oninput=e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,120)+'px'};
+
+async function editMsg(tid,mid,old){if(!isAdmin)return;const v=prompt('عدّل نص الرسالة:',old);if(v==null)return;const t=v.trim();if(!t||t===old)return;
+try{await db.doc('threads/'+tid+'/messages/'+mid).update({text:t.slice(0,2000),edited:true});toast('تم التعديل')}catch(e){console.error(e);toast('تعذر التعديل. انشر القواعد الجديدة في Firebase.')}}
+async function delMsg(tid,mid){if(!isAdmin||!confirm('حذف هذه الرسالة نهائياً؟'))return;
+try{await db.doc('threads/'+tid+'/messages/'+mid).delete();toast('تم الحذف')}catch(e){console.error(e);toast('تعذر الحذف. انشر القواعد الجديدة في Firebase.')}}
+$('#dl').onclick=async()=>{if(!cur||!isAdmin||!confirm('حذف هذا الاستفسار بكل رسائله نهائياً؟'))return;const id=cur;
+try{const s=await db.collection('threads/'+id+'/messages').get();let b=db.batch(),n=0;
+for(const d of s.docs){b.delete(d.ref);if(++n%400===0){await b.commit();b=db.batch()}}
+b.delete(db.doc('threads/'+id));await b.commit();newQ(false);toast('تم حذف الاستفسار')}catch(e){console.error(e);toast('تعذر حذف الاستفسار.')}};
 </script>
 </body>
 </html>
