@@ -117,6 +117,8 @@ main{padding:14px 14px 30px}
 h2.pt{font-size:34px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.acc{padding:7px 16px;font-size:14px;white-space:nowrap;max-width:160px;overflow:hidden;text-overflow:ellipsis}.acc.in{background:linear-gradient(90deg,#f6dc8c,#c9a24a);color:#1a1305;border:0}
+.mh .acc{width:auto}.accw{display:flex;gap:8px;align-items:center}.accw .out{display:none;background:none;border:0;color:var(--mut);font:600 13px Cairo;text-decoration:underline;cursor:pointer}.accw.on .out{display:inline}
 </style>
 </head>
 <body>
@@ -138,8 +140,8 @@ h2.pt{font-size:34px}
 <div class="tag">مع قانونك .. المعرفة القانونية في متناول الجميع</div>
 </nav>
 <main>
-<div class="mh"><button id="mb" aria-label="القائمة" aria-expanded="false" aria-controls="nv">☰</button><span class="brand"><svg aria-hidden="true"><use href="#lg"/></svg><b class="gt">قانونك</b></span><span style="width:44px"></span></div>
-<div class="top"><span class="badge">منصة التوعية القانونية المصرية</span><span>محتوى مبسط للتثقيف العام</span></div>
+<div class="mh"><button id="mb" aria-label="القائمة" aria-expanded="false" aria-controls="nv">☰</button><span class="brand"><svg aria-hidden="true"><use href="#lg"/></svg><b class="gt">قانونك</b></span><span class="accw"><a class="btn alt acc" href="chat.html">دخول</a><button class="out" type="button">خروج</button></span></div>
+<div class="top"><span class="badge">منصة التوعية القانونية المصرية</span><span class="accw"><a class="btn alt acc" href="chat.html">تسجيل الدخول</a><button class="out" type="button">خروج</button></span></div>
 
 <section id="home" class="sec on">
 <div class="hero gb">
@@ -271,6 +273,18 @@ $('#fe').onclick=()=>{const m=fmsg();if(m)open2('mailto:ahmdaymnalshryf0@gmail.c
 
 if(seen){sp.remove();countUp()}else{$('#enter').focus({preventScroll:true})}
 function hask(){const v=$('#hq').value.trim();go('ai');if(v){$('#q2').value=v;ask()}}$('#hgo').onclick=hask;$('#hq').onkeydown=e=>{if(e.key==='Enter')hask()};$('#send').onclick=ask;$('#q2').onkeydown=e=>{if(e.key==="Enter")ask()};
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+(function(){try{
+firebase.initializeApp({apiKey:"AIzaSyBhxpA-EXeFiv691TulagesWPGf7v8vvlQ",authDomain:"qanonak-c40c9.firebaseapp.com",projectId:"qanonak-c40c9",storageBucket:"qanonak-c40c9.firebasestorage.app",messagingSenderId:"1014505705461",appId:"1:1014505705461:web:eedc732d45ebb019675abc"});
+var a=firebase.auth();
+a.onAuthStateChanged(function(u){document.querySelectorAll('.accw').forEach(function(w){
+var b=w.querySelector('.acc'),o=w.querySelector('.out');
+if(u){var n=u.isAnonymous?'زائر':(u.displayName||(u.email||'').split('@')[0]||'حسابي');b.textContent='👤 '+n;b.classList.add('in');w.classList.add('on');o.onclick=function(){a.signOut()}}
+else{b.textContent=w.closest('.mh')?'دخول':'تسجيل الدخول';b.classList.remove('in');w.classList.remove('on')}})});
+}catch(e){}})();
 </script>
 </body>
 </html>

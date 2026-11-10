@@ -115,7 +115,7 @@ const ERR={"auth/email-already-in-use":"هذا البريد مسجّل بالف�
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.x);toast.x=setTimeout(()=>t.classList.remove('on'),3500)}
 let auth,db,me=null,isAdmin=false,isGuest=false,cur=null,unM=null,unL=null,mode='in',busy=false;
 if(cfg.apiKey.startsWith('PASTE')){$('#cfg').hidden=false}
-else{firebase.initializeApp(cfg);auth=firebase.auth();db=firebase.firestore();
+else{firebase.initializeApp(cfg);auth=firebase.auth();db=firebase.firestore();try{db.settings({experimentalAutoDetectLongPolling:true,merge:true})}catch(e){}
 auth.getRedirectResult().catch(x=>toast(ERR[x.code]||'تعذر الدخول بجوجل.'));auth.onAuthStateChanged(onUser)}
 
 function setMode(m){mode=m;$('#t-in').classList.toggle('on',m==='in');$('#t-up').classList.toggle('on',m==='up');$('#nm').hidden=m!=='up';$('#nm').required=m==='up';$('#go').textContent=m==='up'?'إنشاء الحساب':'دخول';$('#pw').autocomplete=m==='up'?'new-password':'current-password'}
@@ -194,7 +194,7 @@ else{b.set(db.collection('threads/'+id+'/messages').doc(),msg);
 b.update(db.doc('threads/'+id),{lastMsg:t.slice(0,80),lastAt:F.serverTimestamp(),replies:F.increment(1)})}
 await b.commit();$('#tx').value='';$('#tx').style.height='auto';
 if(!cur)openThread({id,title:t.slice(0,80),name})}
-catch(e){toast('تعذر إرسال الرسالة. تحقق من الاتصال والقواعد.')}
+catch(e){console.error('send failed',e);const c=e&&e.code||'';toast(c==='permission-denied'?'القواعد تمنع الإرسال: انشر ملف firestore.rules الجديد في Firebase (Rules).':c==='unavailable'?'تعذر الوصول إلى قاعدة البيانات. تأكد من الإنترنت أو أنك أنشأت Firestore Database.':c==='not-found'?'لم يتم إنشاء Firestore Database في مشروعك بعد.':'تعذر إرسال الرسالة ('+(c||e.message)+')')}
 busy=false}
 $('#sd').onclick=send;
 $('#tx').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
