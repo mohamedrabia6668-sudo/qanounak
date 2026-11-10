@@ -250,12 +250,18 @@ const SYS="أنت «قانونك»، مساعد قانوني مصري محترف
 let busy=false,sampleP=null;
 function local(q){const w=q.split(/\s+/).filter(x=>x.length>2);const r=L.map(x=>({x,k:w.filter(t=>(x.n+x.s+x.e).includes(t)).length})).filter(o=>o.k).sort((a,b)=>b.k-a.k).slice(0,2);
 return r.length?r.map(o=>o.x.n+" ("+o.x.no+")\n"+o.x.s+"\nمثال: "+o.x.e).join("\n\n"):"لم أجد قانوناً مطابقاً في المكتبة. أعد صياغة السؤال بكلمات أوضح."}
+const HIST=[];
 async function ask(){const q=$('#q2').value.trim();if(!q||busy)return;busy=true;$('#q2').value='';
 const c=$('#chat');c.append(el('div','m u',q));const a=el('div','m a','جارٍ التفكير…');c.append(a);c.scrollTop=c.scrollHeight;
-try{sampleP=sampleP||(window.claude&&claude.use?claude.use("sample"):Promise.resolve(null));const sm=await sampleP;
-if(!sm)throw 0;
-await sm([{role:"user",content:SYS+"\n\nسؤال المستخدم: "+q}],{cache:false,modelTier:"default",onText:({text})=>{a.textContent=text;c.scrollTop=c.scrollHeight}}).then(r=>{a.textContent=r.text})}
-catch(e){a.textContent="المساعد الذكي غير متاح الآن، وهذه أقرب نتائج من المكتبة:\n\n"+local(q)}
+try{
+const u=window.qAuth&&window.qAuth.currentUser;
+if(!u){a.textContent='سجّل دخولك أولاً لاستخدام المساعد الذكي.';a.append(document.createElement('br'));const l=el('a','btn alt','تسجيل الدخول');l.href='chat.html';l.style.marginTop='8px';a.append(l);busy=false;return}
+HIST.push({role:'user',content:q});
+const r=await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+await u.getIdToken()},body:JSON.stringify({messages:HIST.slice(-8),lib:L.map(x=>x.n+' '+x.no).join('؛ ')})});
+if(!r.ok)throw r.status;
+const j=await r.json();if(!j.text)throw 0;
+a.textContent=j.text;HIST.push({role:'assistant',content:j.text});c.scrollTop=c.scrollHeight}
+catch(e){HIST.pop();console.error('ai failed',e);a.textContent="المساعد الذكي غير متاح الآن، وهذه أقرب نتائج من المكتبة:\n\n"+local(q)}
 busy=false}
 $('#nL').dataset.t=L.length;$('#nC').dataset.t=cats.length-1;$('#nE').dataset.t=L.length;
 function countUp(){const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;document.querySelectorAll('[data-t]').forEach(e=>{const t=+e.dataset.t;if(rm){e.textContent=t;return}const s0=performance.now();(function f(n){const p=Math.min((n-s0)/1100,1);e.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s0)})}
@@ -279,7 +285,7 @@ function hask(){const v=$('#hq').value.trim();go('ai');if(v){$('#q2').value=v;as
 <script>
 (function(){try{
 firebase.initializeApp({apiKey:"AIzaSyBhxpA-EXeFiv691TulagesWPGf7v8vvlQ",authDomain:"qanonak-c40c9.firebaseapp.com",projectId:"qanonak-c40c9",storageBucket:"qanonak-c40c9.firebasestorage.app",messagingSenderId:"1014505705461",appId:"1:1014505705461:web:eedc732d45ebb019675abc"});
-var a=firebase.auth();
+var a=firebase.auth();window.qAuth=a;
 a.onAuthStateChanged(function(u){document.querySelectorAll('.accw').forEach(function(w){
 var b=w.querySelector('.acc'),o=w.querySelector('.out');
 if(u){var n=u.isAnonymous?'زائر':(u.displayName||(u.email||'').split('@')[0]||'حسابي');b.textContent='👤 '+n;b.classList.add('in');w.classList.add('on');o.onclick=function(){a.signOut()}}
