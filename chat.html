@@ -60,6 +60,14 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 .b strong{display:block;font-size:12.5px;color:var(--gold)}.tg{font-style:normal;background:var(--gold);color:#1a1305;border-radius:99px;font-size:10.5px;padding:0 8px;margin-inline-start:6px;font-weight:800}
 .tl{display:flex;gap:10px;justify-content:flex-end;margin-top:2px}.tl button{background:none;border:0;color:var(--gold);font:600 12px Cairo;cursor:pointer;padding:0;text-decoration:underline}.tl button.dn{color:#ff9d9d}
 #dl{margin-inline-start:auto;padding:4px 12px;font-size:13px;color:#ff9d9d;border-color:#ff9d9d88}
+.sm{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:#000a}
+.sp{width:min(520px,100%);max-height:88dvh;overflow:auto;border-radius:22px;padding:20px;--c:#0b1740}
+.sp h2{margin:0 0 4px;font-size:26px}.sp .s{color:var(--mut);font-size:13.5px;margin:0 0 12px}
+.sp .f select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Cairo}
+.sr{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ffffff14}
+.sr .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:start}
+.sr em{font-style:normal;background:var(--gold);color:#1a1305;border-radius:99px;font-size:11px;padding:0 10px;font-weight:800;flex:none}
+.sr button{background:none;border:0;color:#ff9d9d;font:600 13px Cairo;cursor:pointer;text-decoration:underline;flex:none}
 #toast{position:fixed;inset-inline:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));margin:auto;width:fit-content;max-width:90%;background:#1b2c63;border:1px solid var(--gold);padding:8px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
 #toast.on{opacity:1}
 @media(max-width:760px){.wrap{grid-template-columns:1fr}.wrap #pane{display:none}.wrap.show #lst{display:none}.wrap.show #pane{display:flex}#bk{display:block}.b{max-width:88%}}
@@ -69,7 +77,7 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".55" stop-color="#f0cf7a"/><stop offset="1" stop-color="#a97f2a"/></linearGradient>
 <symbol id="lg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="#0b1740" stroke="url(#gg)" stroke-width="3"/><g fill="none" stroke="url(#gg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M50 23v46M38 71h24M32 32h36M32 32l-7 14M32 32l7 14M68 32l-7 14M68 32l7 14M24 46h16a8 8 0 0 1-16 0zM60 46h16a8 8 0 0 1-16 0z"/></g><circle cx="50" cy="19" r="3.4" fill="url(#gg)"/></symbol></defs></svg>
-<header class="hd"><a class="brand" href="index.html"><svg aria-hidden="true"><use href="#lg"/></svg><b class="gt">قانونك</b></a><span id="who"></span><button class="btn alt" id="out" hidden>خروج</button></header>
+<header class="hd"><a class="brand" href="index.html"><svg aria-hidden="true"><use href="#lg"/></svg><b class="gt">قانونك</b></a><span id="who"></span><button class="btn alt" id="sb" type="button" hidden>👥 المستشارون</button><button class="btn alt" id="out" hidden>خروج</button></header>
 
 <div id="cfg" hidden><b>الإعداد غير مكتمل.</b> افتح الملف chat.html وضع بيانات مشروع Firebase مكان القيم التي تبدأ بـ PASTE داخل المتغير cfg. الخطوات كاملة في ملف README.md.</div>
 
@@ -102,6 +110,14 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 </div>
 </div>
 </section>
+<div class="sm" id="sm" hidden><div class="sp gb">
+<h2 class="gt">إدارة المستشارين والمحامين</h2><p class="s">أي بريد تضيفه هنا يصبح مستشاراً/محامياً بمجرد دخوله بنفس البريد (جوجل أو بريد مؤكَّد).</p>
+<form id="sf" class="f"><input id="se" type="email" placeholder="بريد المستشار أو المحامي" dir="ltr" required>
+<select id="sr_"><option value="lawyer">محامي</option><option value="advisor">مستشار</option></select>
+<button class="btn" id="sa" type="submit">＋ إضافة</button></form>
+<div id="sl" style="margin-top:12px"></div>
+<button class="btn alt w" id="sx" type="button">إغلاق</button>
+</div></div>
 <div id="toast" role="status"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -111,7 +127,8 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 /* ضع هنا بيانات مشروعك من Firebase: Project settings > Your apps > Web */
 const cfg={apiKey:"AIzaSyBhxpA-EXeFiv691TulagesWPGf7v8vvlQ",authDomain:"qanonak-c40c9.firebaseapp.com",projectId:"qanonak-c40c9",storageBucket:"qanonak-c40c9.firebasestorage.app",messagingSenderId:"1014505705461",appId:"1:1014505705461:web:eedc732d45ebb019675abc"};
 
-const ADMIN_EMAIL='mohamedrabia66680@gmail.com';
+const OWNERS=['mohamedrabia66680@gmail.com','ahmdaymnalshryf0@gmail.com'];
+let isOwner=false,unS=null;
 const $=s=>document.querySelector(s);
 function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 const ERR={"auth/email-already-in-use":"هذا البريد مسجّل بالفعل، سجّل الدخول.","auth/invalid-email":"البريد الإلكتروني غير صحيح.","auth/weak-password":"كلمة المرور ضعيفة، استخدم 6 أحرف أو أكثر.","auth/user-not-found":"لا يوجد حساب بهذا البريد.","auth/wrong-password":"كلمة المرور غير صحيحة.","auth/invalid-credential":"البريد أو كلمة المرور غير صحيحة.","auth/too-many-requests":"محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة.","auth/network-request-failed":"تحقق من اتصالك بالإنترنت.","auth/popup-closed-by-user":"أُغلقت نافذة جوجل قبل إكمال الدخول.","auth/cancelled-popup-request":"تم إلغاء الطلب، حاول مرة أخرى.","auth/operation-not-allowed":"طريقة الدخول هذه غير مفعّلة في Firebase بعد.","auth/unauthorized-domain":"هذا الدومين غير مضاف في Authorized domains.","auth/account-exists-with-different-credential":"هذا البريد مسجّل بطريقة دخول أخرى.","auth/credential-already-in-use":"حساب جوجل هذا مرتبط بحساب آخر."};
@@ -139,13 +156,18 @@ $('#out').onclick=()=>auth.signOut();
 
 async function onUser(u){
 me=u;unM&&unM();unL&&unL();unM=unL=null;cur=null;
+unS&&unS();unS=null;$('#sm').hidden=true;$('#sb').hidden=true;isOwner=false;
 if(!u){$('#auth').hidden=false;$('#app').hidden=true;$('#out').hidden=true;$('#who').textContent='';return}
 isGuest=u.isAnonymous;
 $('#auth').hidden=true;$('#app').hidden=false;$('#out').hidden=false;$('#gb').hidden=!isGuest;
 $('#who').textContent=isGuest?'زائر':(u.displayName||u.email);
-isAdmin=!isGuest&&u.emailVerified&&(u.email||'').toLowerCase()===ADMIN_EMAIL;
+const ue=(u.email||'').toLowerCase();
+isOwner=!isGuest&&u.emailVerified&&OWNERS.includes(ue);
+isAdmin=isOwner;
+if(!isAdmin&&!isGuest&&u.emailVerified&&ue){try{isAdmin=(await db.doc('staff/'+ue).get()).exists}catch(e){}}
 if(!isAdmin&&!isGuest){try{isAdmin=(await db.doc('admins/'+u.uid).get()).exists}catch(e){}}
-if(isAdmin)$('#who').textContent='⚖ '+$('#who').textContent+' (مستشار)';
+$('#sb').hidden=!isOwner;
+if(isAdmin)$('#who').textContent='⚖ '+$('#who').textContent+(isOwner?' (المالك)':' (مستشار)');
 listThreads();newQ(false)}
 
 function nameOf(u){return isGuest?'زائر':(u.displayName||(u.email||'').split('@')[0]||'عضو')}
@@ -215,6 +237,23 @@ $('#dl').onclick=async()=>{if(!cur||!isAdmin||!confirm('حذف هذا الاست
 try{const s=await db.collection('threads/'+id+'/messages').get();let b=db.batch(),n=0;
 for(const d of s.docs){b.delete(d.ref);if(++n%400===0){await b.commit();b=db.batch()}}
 b.delete(db.doc('threads/'+id));await b.commit();newQ(false);toast('تم حذف الاستفسار')}catch(e){console.error(e);toast('تعذر حذف الاستفسار.')}};
+
+/* ===== إدارة المستشارين (للمالك فقط) ===== */
+const ROLE={lawyer:'محامي',advisor:'مستشار'};
+function staffList(){unS&&unS();unS=db.collection('staff').onSnapshot(sn=>{
+const l=$('#sl');l.textContent='';
+if(sn.empty){l.append(el('p','emp','لم تضف أحداً بعد.'));return}
+sn.docs.forEach(d=>{const x=d.data(),r=el('div','sr'),t=el('span','t',d.id),g=el('em',0,ROLE[x.role]||'مستشار'),b=el('button',0,'إزالة');b.type='button';
+b.onclick=async()=>{if(!confirm('إزالة '+d.id+' من المستشارين؟'))return;
+try{await db.doc('staff/'+d.id).delete();toast('تمت الإزالة')}catch(e){console.error(e);toast('تعذرت الإزالة. انشر القواعد الجديدة في Firebase.')}};
+r.append(t,g,b);l.append(r)})},e=>{console.error(e);$('#sl').textContent='تعذر تحميل القائمة. انشر القواعد الجديدة في Firebase.'})}
+$('#sb').onclick=()=>{if(!isOwner)return;$('#sm').hidden=false;staffList()};
+$('#sx').onclick=()=>{$('#sm').hidden=true;unS&&unS();unS=null};
+$('#sf').onsubmit=e=>{e.preventDefault();if(!isOwner)return;
+const em=$('#se').value.trim().toLowerCase();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){toast('البريد غير صحيح.');return}
+run($('#sa'),async()=>{try{await db.doc('staff/'+em).set({email:em,role:$('#sr_').value,addedAt:firebase.firestore.FieldValue.serverTimestamp()});
+$('#se').value='';toast('تمت الإضافة. يدخل بنفس البريد ليصبح مستشاراً.')}
+catch(x){console.error(x);toast('تعذرت الإضافة. انشر القواعد الجديدة في Firebase.')}})};
 </script>
 </body>
 </html>
