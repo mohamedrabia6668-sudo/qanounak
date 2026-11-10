@@ -30,8 +30,8 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 .lnk{background:none;border:0;color:var(--gold);cursor:pointer;font:600 14px Cairo;text-decoration:underline;justify-self:center}
 .note{color:var(--mut);font-size:12.5px;text-align:center;margin:10px 0 0}
 #cfg{margin:20px auto;max-width:640px;padding:18px;border-radius:16px;background:#3b1d1d;border:1px solid #e07070}
-.wrap{display:grid;grid-template-columns:1fr;height:calc(100dvh - 64px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
-.wrap.adm{grid-template-columns:330px 1fr}
+#app{display:flex;flex-direction:column;height:calc(100dvh - 64px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+.wrap{flex:1;min-height:0;display:grid;grid-template-columns:340px 1fr}
 #lst{overflow:auto;border-inline-end:1px solid #c9a24a44;background:#08102a}
 .ci{display:flex;gap:10px;align-items:center;width:100%;text-align:start;padding:12px 14px;background:none;border:0;border-bottom:1px solid #ffffff10;color:var(--txt);font-family:Cairo;cursor:pointer}
 .ci:hover,.ci.on{background:#14214a}
@@ -48,13 +48,19 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 .b.me{align-self:flex-start;background:linear-gradient(135deg,#2a4aa8,#1b2c63);border-end-start-radius:4px}
 .b.ot{align-self:flex-end;background:#111f4a;border:1px solid #c9a24a44;border-end-end-radius:4px}
 .dy{align-self:center;background:#0b1536;color:var(--mut);font-size:12px;padding:2px 12px;border-radius:99px;margin:6px 0}
-.emp{text-align:center;color:var(--mut);padding:30px 16px}
+.emp{white-space:pre-line;text-align:center;color:var(--mut);padding:30px 16px}
 .cp{display:flex;gap:8px;padding:10px 12px;background:#0b1636;border-top:1px solid #c9a24a44;align-items:flex-end}
 #tx{resize:none;max-height:120px;border-radius:22px}
 #sd{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;font-size:20px;color:#1a1305;background:linear-gradient(135deg,#f6dc8c,#c9a24a);flex:none}
+.gg2{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#1f1f1f;margin-bottom:12px}
+.w{width:100%;margin-top:10px}
+.sep{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:13px;margin:4px 0 12px}.sep:before,.sep:after{content:"";flex:1;height:1px;background:#c9a24a44}
+#lst{display:flex;flex-direction:column;min-height:0;overflow:hidden}#items{overflow:auto;flex:1}.lh{padding:10px 12px;border-bottom:1px solid #c9a24a44}.lh .btn{width:100%;padding:9px}
+.gbn{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:8px 16px;background:#2a2410;border-bottom:1px solid #c9a24a66;font-size:14px}
+.b strong{display:block;font-size:12.5px;color:var(--gold)}.tg{font-style:normal;background:var(--gold);color:#1a1305;border-radius:99px;font-size:10.5px;padding:0 8px;margin-inline-start:6px;font-weight:800}
 #toast{position:fixed;inset-inline:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));margin:auto;width:fit-content;max-width:90%;background:#1b2c63;border:1px solid var(--gold);padding:8px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
 #toast.on{opacity:1}
-@media(max-width:760px){.wrap.adm{grid-template-columns:1fr}.wrap.adm #pane{display:none}.wrap.adm.show #lst{display:none}.wrap.adm.show #pane{display:flex}.wrap.adm #bk{display:block}.b{max-width:88%}}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}.wrap #pane{display:none}.wrap.show #lst{display:none}.wrap.show #pane{display:flex}#bk{display:block}.b{max-width:88%}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -67,7 +73,9 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 
 <section id="auth" hidden>
 <div class="card gb">
-<h1 class="gt">استشارة المحامي</h1><p class="s">سجّل دخولك لتبدأ محادثة مباشرة مع المستشار</p>
+<h1 class="gt">استشارة المحامي</h1><p class="s">سجّل دخولك لتطرح استفسارك ويجيبك المستشار أو أي عضو مسجل</p>
+<button class="btn gg2" id="gl" type="button"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>المتابعة بحساب جوجل</button>
+<div class="sep">أو بالبريد الإلكتروني</div>
 <div class="tabs"><button id="t-in" class="on" type="button">تسجيل الدخول</button><button id="t-up" type="button">إنشاء حساب</button></div>
 <form id="af" class="f">
 <input id="nm" placeholder="الاسم الكامل" autocomplete="name" hidden>
@@ -76,15 +84,17 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 <button class="btn" id="go" type="submit">دخول</button>
 <button class="lnk" id="rs" type="button">نسيت كلمة المرور؟</button>
 </form>
+<button class="btn alt w" id="gs" type="button">الدخول كزائر (بدون حساب)</button>
 <p class="note">لا ترسل أرقام بطاقات أو كلمات مرور داخل المحادثة. الرد على الرسائل إرشادي ولا يغني عن توكيل محامٍ في قضيتك.</p>
 </div>
 </section>
 
 <section id="app" hidden>
+<div id="gb" class="gbn" hidden><span>أنت داخل كزائر: يمكنك طرح استفساراتك ومتابعة الردود عليها فقط. للرد على استفسارات الآخرين اربط حسابك بجوجل.</span><button class="btn alt" id="up" type="button">ربط بحساب جوجل</button></div>
 <div class="wrap" id="wrap">
-<aside id="lst" hidden></aside>
+<aside id="lst"><div class="lh"><button class="btn" id="nq" type="button">＋ استفسار جديد</button></div><div id="items"></div></aside>
 <div id="pane">
-<div class="ph"><button id="bk" aria-label="رجوع">→</button><div class="av">⚖</div><div><b id="pt">المستشار القانوني</b><small id="ps">اكتب سؤالك وسيصلك الرد هنا</small></div></div>
+<div class="ph"><button id="bk" aria-label="رجوع">→</button><div class="av">⚖</div><div><b id="pt">استفسار جديد</b><small id="ps"></small></div></div>
 <div id="ms" aria-live="polite"></div>
 <div class="cp"><textarea id="tx" rows="1" placeholder="اكتب رسالتك…" aria-label="الرسالة" maxlength="2000"></textarea><button id="sd" aria-label="إرسال">➤</button></div>
 </div>
@@ -101,66 +111,91 @@ const cfg={apiKey:"AIzaSyBhxpA-EXeFiv691TulagesWPGf7v8vvlQ",authDomain:"qanonak-
 
 const $=s=>document.querySelector(s);
 function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
-const ERR={"auth/email-already-in-use":"هذا البريد مسجّل بالفعل، سجّل الدخول.","auth/invalid-email":"البريد الإلكتروني غير صحيح.","auth/weak-password":"كلمة المرور ضعيفة، استخدم 6 أحرف أو أكثر.","auth/user-not-found":"لا يوجد حساب بهذا البريد.","auth/wrong-password":"كلمة المرور غير صحيحة.","auth/invalid-credential":"البريد أو كلمة المرور غير صحيحة.","auth/too-many-requests":"محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة.","auth/network-request-failed":"تحقق من اتصالك بالإنترنت."};
+const ERR={"auth/email-already-in-use":"هذا البريد مسجّل بالفعل، سجّل الدخول.","auth/invalid-email":"البريد الإلكتروني غير صحيح.","auth/weak-password":"كلمة المرور ضعيفة، استخدم 6 أحرف أو أكثر.","auth/user-not-found":"لا يوجد حساب بهذا البريد.","auth/wrong-password":"كلمة المرور غير صحيحة.","auth/invalid-credential":"البريد أو كلمة المرور غير صحيحة.","auth/too-many-requests":"محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة.","auth/network-request-failed":"تحقق من اتصالك بالإنترنت.","auth/popup-closed-by-user":"أُغلقت نافذة جوجل قبل إكمال الدخول.","auth/cancelled-popup-request":"تم إلغاء الطلب، حاول مرة أخرى.","auth/operation-not-allowed":"طريقة الدخول هذه غير مفعّلة في Firebase بعد.","auth/unauthorized-domain":"هذا الدومين غير مضاف في Authorized domains.","auth/account-exists-with-different-credential":"هذا البريد مسجّل بطريقة دخول أخرى.","auth/credential-already-in-use":"حساب جوجل هذا مرتبط بحساب آخر."};
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.x);toast.x=setTimeout(()=>t.classList.remove('on'),3500)}
-let auth,db,me=null,isAdmin=false,cur=null,unM=null,unL=null,mode='in';
-
+let auth,db,me=null,isAdmin=false,isGuest=false,cur=null,unM=null,unL=null,mode='in',busy=false;
 if(cfg.apiKey.startsWith('PASTE')){$('#cfg').hidden=false}
-else{firebase.initializeApp(cfg);auth=firebase.auth();db=firebase.firestore();auth.onAuthStateChanged(onUser)}
+else{firebase.initializeApp(cfg);auth=firebase.auth();db=firebase.firestore();
+auth.getRedirectResult().catch(x=>toast(ERR[x.code]||'تعذر الدخول بجوجل.'));auth.onAuthStateChanged(onUser)}
 
 function setMode(m){mode=m;$('#t-in').classList.toggle('on',m==='in');$('#t-up').classList.toggle('on',m==='up');$('#nm').hidden=m!=='up';$('#nm').required=m==='up';$('#go').textContent=m==='up'?'إنشاء الحساب':'دخول';$('#pw').autocomplete=m==='up'?'new-password':'current-password'}
 $('#t-in').onclick=()=>setMode('in');$('#t-up').onclick=()=>setMode('up');
-$('#af').onsubmit=async e=>{e.preventDefault();const b=$('#go');b.disabled=true;
-try{const em=$('#em').value.trim(),pw=$('#pw').value;
+async function run(btn,fn){btn.disabled=true;try{await fn()}catch(x){toast(ERR[x.code]||'حدث خطأ، حاول مرة أخرى.')}btn.disabled=false}
+const gp=()=>{const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p};
+$('#af').onsubmit=e=>{e.preventDefault();run($('#go'),async()=>{const em=$('#em').value.trim(),pw=$('#pw').value;
 if(mode==='up'){const c=await auth.createUserWithEmailAndPassword(em,pw);await c.user.updateProfile({displayName:$('#nm').value.trim()});$('#who').textContent=c.user.displayName||em}
-else await auth.signInWithEmailAndPassword(em,pw)}
-catch(x){toast(ERR[x.code]||'حدث خطأ، حاول مرة أخرى.')}
-b.disabled=false};
+else await auth.signInWithEmailAndPassword(em,pw)})};
+$('#gl').onclick=()=>run($('#gl'),async()=>{const p=gp();
+try{await auth.signInWithPopup(p)}catch(x){if(x.code==='auth/popup-blocked'||x.code==='auth/operation-not-supported-in-this-environment')await auth.signInWithRedirect(p);else throw x}});
+$('#gs').onclick=()=>run($('#gs'),()=>auth.signInAnonymously());
+$('#up').onclick=()=>run($('#up'),async()=>{try{await auth.currentUser.linkWithPopup(gp());await auth.currentUser.getIdToken(true);location.reload()}
+catch(x){if(x.code==='auth/credential-already-in-use'&&x.credential)await auth.signInWithCredential(x.credential);else throw x}});
 $('#rs').onclick=async()=>{const v=$('#em').value.trim();if(!v){toast('اكتب بريدك الإلكتروني أولاً.');return}
 try{await auth.sendPasswordResetEmail(v);toast('أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك.')}catch(x){toast(ERR[x.code]||'تعذر الإرسال.')}};
 $('#out').onclick=()=>auth.signOut();
 
 async function onUser(u){
 me=u;unM&&unM();unL&&unL();unM=unL=null;cur=null;
-const w=$('#wrap');w.classList.remove('adm','show');$('#lst').hidden=true;$('#ms').textContent='';
 if(!u){$('#auth').hidden=false;$('#app').hidden=true;$('#out').hidden=true;$('#who').textContent='';return}
-$('#auth').hidden=true;$('#app').hidden=false;$('#out').hidden=false;$('#who').textContent=u.displayName||u.email;
-try{isAdmin=(await db.doc('admins/'+u.uid).get()).exists}catch(e){isAdmin=false}
-if(isAdmin){w.classList.add('adm');$('#lst').hidden=false;$('#pt').textContent='لوحة المستشار';$('#ps').textContent='اختر محادثة من القائمة';$('#ms').append(el('p','emp','اختر محادثة للرد'));listChats()}
-else{$('#pt').textContent='المستشار القانوني';$('#ps').textContent='اكتب سؤالك وسيصلك الرد هنا';openChat(u.uid)}}
+isGuest=u.isAnonymous;
+$('#auth').hidden=true;$('#app').hidden=false;$('#out').hidden=false;$('#gb').hidden=!isGuest;
+$('#who').textContent=isGuest?'زائر':(u.displayName||u.email);
+try{isAdmin=!isGuest&&(await db.doc('admins/'+u.uid).get()).exists}catch(e){isAdmin=false}
+if(isAdmin)$('#who').textContent='⚖ '+$('#who').textContent+' (مستشار)';
+listThreads();newQ(false)}
 
-function listChats(){
-unL=db.collection('chats').orderBy('lastAt','desc').onSnapshot(s=>{
-const l=$('#lst');l.textContent='';
-if(s.empty){l.append(el('p','emp','لا توجد محادثات بعد'));return}
-s.forEach(d=>{const c=d.data(),n=c.name||c.email||'زائر';
-const b=el('button','ci'+(cur===d.id?' on':''));b.append(el('div','av',n.trim().charAt(0)||'؟'));
-const t=el('div','t');t.append(el('b',0,n),el('small',0,c.lastMsg||''));b.append(t);
-if(c.unreadAdmin>0)b.append(el('span','bd',String(c.unreadAdmin)));
-b.onclick=()=>{$('#pt').textContent=n;$('#ps').textContent=c.email||'';openChat(d.id)};l.append(b)})},
-e=>toast('تعذر تحميل المحادثات. تأكد من قواعد Firestore وصلاحية المستشار.'))}
+function nameOf(u){return isGuest?'زائر':(u.displayName||(u.email||'').split('@')[0]||'عضو')}
+function listThreads(){
+let q=db.collection('threads');
+q=isGuest?q.where('uid','==',me.uid):q.orderBy('lastAt','desc').limit(100);
+unL=q.onSnapshot(s=>{
+const l=$('#items');l.textContent='';
+const a=s.docs.map(d=>({id:d.id,...d.data({serverTimestamps:'estimate'})}));
+if(isGuest)a.sort((x,y)=>(y.lastAt?y.lastAt.toMillis():0)-(x.lastAt?x.lastAt.toMillis():0));
+if(!a.length){l.append(el('p','emp',isGuest?'لم ترسل استفساراً بعد.':'لا توجد استفسارات بعد. كن أول من يسأل.'));return}
+a.forEach(c=>{const n=c.name||'زائر',b=el('button','ci'+(cur===c.id?' on':''));
+b.dataset.id=c.id;b.append(el('div','av',n.trim().charAt(0)||'؟'));
+const t=el('div','t');t.append(el('b',0,c.title||''),el('small',0,n+' · '+(c.lastMsg||'')));b.append(t);
+if(c.replies>0)b.append(el('span','bd',String(c.replies)));
+b.onclick=()=>openThread(c);l.append(b)})},
+e=>toast('تعذر تحميل الاستفسارات. تأكد من قواعد Firestore.'))}
 
-function openChat(uid){
-cur=uid;unM&&unM();$('#wrap').classList.add('show');
-unM=db.collection('chats/'+uid+'/messages').orderBy('at').onSnapshot(s=>{
+function newQ(show){
+cur=null;unM&&unM();unM=null;$('#wrap').classList.toggle('show',!!show);
+document.querySelectorAll('.ci').forEach(x=>x.classList.remove('on'));
+$('#pt').textContent='استفسار جديد';$('#ps').textContent='يجيبك المستشار أو أي عضو مسجل';
+const m=$('#ms');m.textContent='';m.append(el('p','emp','اكتب استفسارك القانوني في الأسفل.\nسيظهر للأعضاء المسجلين ليجيبوا عليه، فلا تكتب بياناتك الشخصية أو أرقام بطاقات.'))}
+$('#nq').onclick=()=>newQ(true);
+
+function openThread(c){
+cur=c.id;unM&&unM();$('#wrap').classList.add('show');
+document.querySelectorAll('.ci').forEach(x=>x.classList.toggle('on',x.dataset.id===c.id));
+$('#pt').textContent=c.title||'استفسار';$('#ps').textContent='سأل: '+(c.name||'زائر');
+unM=db.collection('threads/'+c.id+'/messages').orderBy('at').onSnapshot(s=>{
 const box=$('#ms');box.textContent='';let day='';
-if(s.empty)box.append(el('p','emp',isAdmin?'لا رسائل بعد':'ابدأ محادثتك مع المستشار بكتابة سؤالك أدناه.'));
 s.forEach(d=>{const m=d.data({serverTimestamps:'estimate'}),t=m.at?m.at.toDate():new Date();
 const dd=t.toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'});
 if(dd!==day){day=dd;box.append(el('div','dy',dd))}
-const mine=isAdmin?m.from==='admin':m.from==='user';
-const b=el('div','b '+(mine?'me':'ot'),m.text);b.append(el('i',0,t.toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit'})));box.append(b)});
-box.scrollTop=box.scrollHeight;markRead()},
-e=>toast('تعذر تحميل الرسائل.'))}
-function markRead(){if(!cur)return;db.doc('chats/'+cur).set(isAdmin?{unreadAdmin:0}:{unreadUser:0},{merge:true}).catch(()=>{})}
-$('#bk').onclick=()=>{$('#wrap').classList.remove('show');cur=null;unM&&unM();unM=null;$('#ms').textContent='';$('#pt').textContent='لوحة المستشار';$('#ps').textContent='اختر محادثة من القائمة'};
+const mine=m.uid===me.uid,b=el('div','b '+(mine?'me':'ot'));
+if(!mine){const n=el('strong',0,m.name||'عضو');if(m.adm)n.append(el('em','tg','مستشار'));b.append(n)}
+b.append(el('span',0,m.text),el('i',0,t.toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit'})));box.append(b)});
+box.scrollTop=box.scrollHeight},e=>toast('تعذر تحميل الرسائل.'))}
+$('#bk').onclick=()=>newQ(false);
 
 async function send(){
-const t=$('#tx').value.trim();if(!t||!cur||!me)return;$('#tx').value='';$('#tx').style.height='auto';
-const F=firebase.firestore.FieldValue,u=auth.currentUser,b=db.batch();
-b.set(db.collection('chats/'+cur+'/messages').doc(),{text:t,from:isAdmin?'admin':'user',at:F.serverTimestamp()});
-b.set(db.doc('chats/'+cur),isAdmin?{lastMsg:t.slice(0,80),lastAt:F.serverTimestamp(),unreadUser:F.increment(1),unreadAdmin:0}:{name:u.displayName||'',email:u.email,lastMsg:t.slice(0,80),lastAt:F.serverTimestamp(),unreadAdmin:F.increment(1),unreadUser:0},{merge:true});
-try{await b.commit()}catch(e){toast('تعذر إرسال الرسالة. تحقق من الاتصال والقواعد.');$('#tx').value=t}}
+const t=$('#tx').value.trim();if(!t||!me||busy)return;busy=true;
+const F=firebase.firestore.FieldValue,u=auth.currentUser,name=nameOf(u),b=db.batch();let id=cur;
+const msg={uid:u.uid,name,text:t,adm:isAdmin,at:F.serverTimestamp()};
+try{
+if(!id){const r=db.collection('threads').doc();id=r.id;
+b.set(r,{uid:u.uid,name,title:t.slice(0,80),lastMsg:t.slice(0,80),lastAt:F.serverTimestamp(),createdAt:F.serverTimestamp(),replies:0});
+b.set(r.collection('messages').doc(),msg)}
+else{b.set(db.collection('threads/'+id+'/messages').doc(),msg);
+b.update(db.doc('threads/'+id),{lastMsg:t.slice(0,80),lastAt:F.serverTimestamp(),replies:F.increment(1)})}
+await b.commit();$('#tx').value='';$('#tx').style.height='auto';
+if(!cur)openThread({id,title:t.slice(0,80),name})}
+catch(e){toast('تعذر إرسال الرسالة. تحقق من الاتصال والقواعد.')}
+busy=false}
 $('#sd').onclick=send;
 $('#tx').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
 $('#tx').oninput=e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,120)+'px'};

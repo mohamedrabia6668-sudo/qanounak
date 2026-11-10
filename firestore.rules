@@ -3,8 +3,12 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function signedIn() { return request.auth != null; }
+    // عضو مسجّل = أي حساب غير "زائر" (جوجل أو بريد وكلمة مرور)
+    function isMember() {
+      return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
     function isAdmin() {
-      return signedIn() &&
+      return isMember() &&
         exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
@@ -14,22 +18,51 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // كل مستخدم له محادثة واحدة باسم uid الخاص به
-    match /chats/{uid} {
-      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
-      allow create: if signedIn() && request.auth.uid == uid;
-      allow update: if signedIn() && (request.auth.uid == uid || isAdmin());
-      allow delete: if false;
+    // الاستفسارات: الأعضاء يرون الكل، والزائر يرى استفساراته فقط
+    match /threads/{tid} {
+      allow read: if isMember() || (signedIn() && resource.data.uid == request.auth.uid);
+
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.name is string
+        && request.resource.data.name.size() <= 80
+        && request.resource.data.replies == 0
+        && request.resource.data.keys().hasOnly(['uid','name','title','lastMsg','lastAt','createdAt','replies']);
+
+      // تحديث آخر رسالة وعدّاد الردود فقط
+      allow update: if signedIn()
+        && (isMember() || resource.data.uid == request.auth.uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastMsg','lastAt','replies'])
+        && request.resource.data.replies == resource.data.replies + 1
+        && request.resource.data.lastMsg is string
+        && request.resource.data.lastMsg.size() <= 120;
+
+      allow delete: if isAdmin();
 
       match /messages/{mid} {
-        allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+        allow read: if isMember()
+          || (signedIn() && get(/databases/$(database)/documents/threads/$(tid)).data.uid == request.auth.uid);
+
+        // العضو يرد في أي استفسار، والزائر في استفساره هو فقط
         allow create: if signedIn()
+          && existsAfter(/databases/$(database)/documents/threads/$(tid))
+          && (isMember()
+              || getAfter(/databases/$(database)/documents/threads/$(tid)).data.uid == request.auth.uid)
+          && request.resource.data.uid == request.auth.uid
           && request.resource.data.text is string
           && request.resource.data.text.size() > 0
           && request.resource.data.text.size() <= 2000
-          && ((request.auth.uid == uid && request.resource.data.from == 'user')
-              || (isAdmin() && request.resource.data.from == 'admin'));
-        allow update, delete: if false;
+          && request.resource.data.name is string
+          && request.resource.data.name.size() <= 80
+          && request.resource.data.adm == isAdmin()
+          && request.resource.data.at == request.time
+          && request.resource.data.keys().hasOnly(['uid','name','text','adm','at']);
+
+        allow update: if false;
+        allow delete: if isAdmin();
       }
     }
   }
