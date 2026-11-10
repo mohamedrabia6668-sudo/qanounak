@@ -1,1 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>قانونك – المعرفة القانونية المصرية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#050a18;--panel:#0a1330;--gold:#f0cf7a;--gold2:#c9a24a;--gold3:#8a6a22;--txt:#f5eedb;--mut:#a7b0c8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1.8;background:
+radial-gradient(900px 500px at 85% -5%,#1d3a8a55,transparent 60%),radial-gradient(700px 500px at 0% 100%,#c9a24a26,transparent 60%),
+repeating-linear-gradient(90deg,#ffffff05 0 2px,transparent 2px 140px),linear-gradient(#070e24,var(--bg));background-attachment:fixed}
+h1,h2,h3{font-family:'Reem Kufi',Cairo,sans-serif;margin:0}
+.gt{background:linear-gradient(180deg,#fff3c4,#f0cf7a 45%,#b8892f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gb{border:1px solid transparent;background:linear-gradient(var(--c,#0b1534),var(--c,#0b1534)) padding-box,linear-gradient(135deg,#f9e6a0,#8a6a22 45%,#f0cf7a) border-box}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+nav{position:sticky;top:0;height:100vh;overflow:auto;padding:20px 14px;background:linear-gradient(180deg,#0b1636ee,#060c1fee);border-inline-end:1px solid #c9a24a55;backdrop-filter:blur(10px)}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.logo svg{width:44px;height:44px;flex:none}.logo b{font:600 30px 'Reem Kufi';line-height:1}.logo small{display:block;color:var(--mut);font-size:11px;line-height:1.3;margin-top:4px}
+nav button{display:flex;width:100%;gap:12px;align-items:center;background:none;border:0;color:var(--txt);font:600 15px Cairo;padding:10px 12px;border-radius:12px;cursor:pointer;text-align:start;margin-bottom:4px;transition:background .2s}
+nav button i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#16234d;border:1px solid #c9a24a55;font-size:17px;flex:none}
+nav button:hover{background:#15234d}
+nav button.on{background:linear-gradient(90deg,#f6dc8c,#c9a24a);color:#1a1305;box-shadow:0 6px 24px #c9a24a44}
+nav button.on i{background:#fff3c4aa;border-color:#fff3}
+nav button:focus-visible,.card:focus-visible,.chip:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tag{margin-top:24px;padding:14px;border-radius:14px;text-align:center;font-size:14px;color:var(--gold);background:#c9a24a14;border:1px dashed #c9a24a66}
+main{padding:22px 26px 34px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;color:var(--mut);font-size:14px}
+.badge{padding:3px 14px;border-radius:99px;color:var(--gold);background:#c9a24a18;border:1px solid #c9a24a66}
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:38px 34px;display:grid;grid-template-columns:1.25fr .75fr;gap:10px;align-items:center;--c:#0b1740;min-height:340px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 15% 20%,#f0cf7a30,transparent 70%),radial-gradient(400px 300px at 90% 90%,#2b52c455,transparent 70%)}
+.hero>*{position:relative}
+.hero h1{font-size:clamp(54px,9vw,104px);line-height:1.05;filter:drop-shadow(0 6px 30px #c9a24a66)}
+.hero p{margin:10px 0 0;color:#d5d9e8;font-size:18px;max-width:520px}
+.slogan{display:inline-block;margin-top:14px;padding:5px 20px;border-radius:12px;color:#1a1305;font-weight:800;background:linear-gradient(90deg,#f6dc8c,#c9a24a)}
+.ask{display:flex;gap:8px;margin-top:22px;max-width:560px;padding:6px;border-radius:16px;background:#050a18cc;border:1px solid #c9a24a88;box-shadow:0 0 0 6px #c9a24a14}
+.ask input{flex:1;min-width:0;background:none;border:0;color:var(--txt);font:16px Cairo;padding:8px 12px}
+.ask button,.row button{border:0;border-radius:12px;padding:0 22px;font:800 16px Cairo;color:#1a1305;cursor:pointer;background:linear-gradient(90deg,#f6dc8c,#c9a24a);min-height:42px}
+.scale{width:100%;max-width:300px;justify-self:center;filter:drop-shadow(0 0 28px #f0cf7a66)}
+.beam{transform-origin:150px 62px;animation:tilt 3.2s cubic-bezier(.3,1.4,.5,1) 1 both}
+@keyframes tilt{0%{transform:rotate(-9deg)}100%{transform:rotate(0)}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:16px}
+.stat{padding:14px;border-radius:16px;text-align:center}.stat b{display:block;font:600 34px 'Reem Kufi';line-height:1.2}.stat span{color:var(--mut);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin-top:18px}
+.card{position:relative;overflow:hidden;min-height:190px;border-radius:22px;padding:22px;cursor:pointer;text-align:start;color:var(--txt);font-family:Cairo;transition:transform .25s,box-shadow .25s}
+.card::after{content:attr(data-ic);position:absolute;inset-inline-start:-6px;bottom:-22px;font-size:110px;opacity:.16;line-height:1}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px #000a,0 0 30px #f0cf7a33}
+.card h3{font-size:26px;color:var(--gold)}.card span{display:block;color:#d3d8ea;font-size:14px;margin-top:4px}
+.go{display:inline-block;margin-top:14px;background:linear-gradient(90deg,#f6dc8c,#c9a24a);color:#1a1305;border-radius:10px;padding:3px 18px;font-weight:800;font-size:14px;font-style:normal}
+.c1{--c:#0d2a6b}.c2{--c:#0b4a33}.c3{--c:#3e1d78}.c4{--c:#5a4210}
+.two{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}
+.box{border-radius:20px;padding:20px}.box h3{color:var(--gold);font-size:22px;margin-bottom:8px}
+.box li{list-style:none;padding:6px 0;border-bottom:1px solid #ffffff10}.box li::before{content:"✦ ";color:var(--gold)}
+.box ul{margin:0;padding:0}
+.sec{display:none}.sec.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+h2.pt{font-size:40px;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{border:1px solid #c9a24a88;background:#0b1536;color:var(--txt);border-radius:99px;padding:4px 16px;font:600 14px Cairo;cursor:pointer;transition:.2s}
+.chip:hover{background:#16234d}.chip.on{background:linear-gradient(90deg,#f6dc8c,#c9a24a);color:#1a1305;border-color:transparent}
+input#q,#q2{width:100%;padding:13px 16px;border-radius:16px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Cairo}
+details{border-radius:18px;margin:12px 0;--c:#0a1432;transition:box-shadow .2s}details[open]{box-shadow:0 0 28px #c9a24a2e}
+summary{cursor:pointer;padding:14px 18px;font-weight:800;color:var(--gold);font-size:17px}
+summary small{color:var(--mut);font-weight:400;margin-inline-start:10px;font-size:13px}
+.body{padding:0 18px 16px}.ex{border-inline-start:4px solid var(--gold);background:#16265a;padding:10px 14px;border-radius:10px;margin-top:10px}
+.ex b{color:var(--gold)}
+#chat{border-radius:22px;padding:16px;min-height:320px;max-height:58vh;overflow:auto;margin:14px 0;--c:#08102a}
+.m{margin:10px 0;padding:11px 16px;border-radius:16px;white-space:pre-wrap;max-width:92%}
+.u{background:linear-gradient(135deg,#2a4aa8,#1b2c63);margin-inline-start:auto;width:fit-content}
+.a{background:#111f4a;border:1px solid #c9a24a44}
+.row{display:flex;gap:8px}.row #q2{flex:1}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.ribbon{margin-top:22px;text-align:center;padding:12px;border-radius:16px;color:var(--gold);font:600 20px 'Reem Kufi';--c:#08102a}
+.app{align-content:start}
+.lgo{width:46px;height:46px;flex:none}
+.mh{display:none;align-items:center;justify-content:center;gap:10px;margin-bottom:12px}.mh svg{width:42px;height:42px}.mh b{font:600 32px 'Reem Kufi';line-height:1}
+.stat{display:block;cursor:pointer;color:var(--txt);font-family:Cairo;transition:transform .2s,box-shadow .2s}.stat:hover{transform:translateY(-3px);box-shadow:0 10px 26px #c9a24a33}
+#splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;text-align:center;padding:24px;background:radial-gradient(600px 420px at 50% 38%,#26429a66,transparent 70%),radial-gradient(500px 400px at 50% 100%,#c9a24a33,transparent 70%),#050a18;transition:opacity .6s,visibility .6s}
+#splash.out{opacity:0;visibility:hidden}
+.sp{display:flex;flex-direction:column;align-items:center;gap:6px;max-width:420px}
+.sp .big{width:150px;height:150px;filter:drop-shadow(0 0 34px #f0cf7acc);animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
+.sp h1{font-size:76px;line-height:1.1;animation:rise .7s .35s both}
+.sp p{margin:0;font-size:19px;color:#e8e2cf;animation:rise .7s .55s both}
+.sp small{color:var(--gold);font-size:15px;animation:rise .7s .7s both}
+.sp button{margin-top:22px;border:0;border-radius:14px;padding:12px 34px;font:800 18px Cairo;color:#1a1305;cursor:pointer;background:linear-gradient(90deg,#f6dc8c,#c9a24a);box-shadow:0 10px 34px #c9a24a55;animation:rise .7s .9s both}
+.sp button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@keyframes pop{from{opacity:0;transform:scale(.6) rotate(-8deg)}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1}}
+#ov{position:fixed;inset:0;background:#000b;z-index:80;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}#ov.show{opacity:1;visibility:visible}
+.brand{display:flex;align-items:center;gap:10px}
+#mb{width:44px;height:44px;border-radius:12px;border:1px solid #c9a24a88;background:#0b1536;color:var(--gold);font-size:22px;cursor:pointer;flex:none}
+#mb:focus-visible,.btn:focus-visible,.fm input:focus-visible,.fm select:focus-visible,.fm textarea:focus-visible,.cc:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.btn{display:inline-block;border:0;border-radius:12px;padding:10px 22px;font:800 16px Cairo;color:#1a1305;cursor:pointer;text-decoration:none;text-align:center;background:linear-gradient(90deg,#f6dc8c,#c9a24a)}
+.btn.alt{background:#0b1536;color:var(--txt);border:1px solid #c9a24a88}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px}
+.cc{display:block;text-decoration:none;color:var(--txt);border-radius:18px;padding:16px 18px;--c:#0b1740;transition:transform .2s,box-shadow .2s}
+.cc:hover{transform:translateY(-4px);box-shadow:0 12px 30px #c9a24a33}
+.cc b{display:block;color:var(--gold);font-size:19px}.cc span{display:block;color:#e4e8f5;word-break:break-all}.cc small{color:var(--mut)}
+.fm{display:grid;gap:10px;margin-top:14px}
+.fm input,.fm select,.fm textarea{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Cairo}
+.fm textarea{min-height:130px;resize:vertical}
+.fb{display:flex;gap:10px;flex-wrap:wrap}
+.strip{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:18px;padding:16px;border-radius:20px;--c:#0a1432}
+.strip b{color:var(--gold);font:600 20px 'Reem Kufi';width:100%;text-align:center}
+@media(max-width:820px){
+.app{grid-template-columns:1fr}
+nav{position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(300px,84vw);height:auto;z-index:90;display:block;padding:calc(18px + env(safe-area-inset-top,0px)) 14px calc(18px + env(safe-area-inset-bottom,0px));border-inline-end:1px solid #c9a24a66;background:#070e26;transform:translateX(105%);transition:transform .3s;overflow:auto}
+nav.open{transform:none;box-shadow:-20px 0 60px #000c}
+main{padding:14px 14px 30px}
+.mh{display:flex;justify-content:space-between;position:sticky;top:0;z-index:40;margin:-14px -14px 14px;padding:10px 14px;background:#050a18ee;backdrop-filter:blur(10px);border-bottom:1px solid #c9a24a44}
+.top span:last-child{display:none}.top{justify-content:center}
+.hero{grid-template-columns:1fr;padding:24px 18px;text-align:center;min-height:0}
+.hero p{margin-inline:auto;font-size:16px}.ask{margin-inline:auto}.scale{max-width:160px;order:-1}
+.slogan{font-size:14px}
+.two{grid-template-columns:1fr}
+h2.pt{font-size:34px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".55" stop-color="#f0cf7a"/><stop offset="1" stop-color="#a97f2a"/></linearGradient>
+<symbol id="lg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="#0b1740" stroke="url(#gg)" stroke-width="3"/><circle cx="50" cy="50" r="41" fill="none" stroke="url(#gg)" stroke-width=".8" opacity=".6"/>
+<g fill="url(#gg)" opacity=".9"><ellipse cx="17" cy="66" rx="2.6" ry="5" transform="rotate(-35 17 66)"/><ellipse cx="13.5" cy="56" rx="2.6" ry="5" transform="rotate(-12 13.5 56)"/><ellipse cx="13.5" cy="46" rx="2.6" ry="5" transform="rotate(12 13.5 46)"/><ellipse cx="17" cy="36" rx="2.6" ry="5" transform="rotate(35 17 36)"/><ellipse cx="83" cy="66" rx="2.6" ry="5" transform="rotate(35 83 66)"/><ellipse cx="86.5" cy="56" rx="2.6" ry="5" transform="rotate(12 86.5 56)"/><ellipse cx="86.5" cy="46" rx="2.6" ry="5" transform="rotate(-12 86.5 46)"/><ellipse cx="83" cy="36" rx="2.6" ry="5" transform="rotate(-35 83 36)"/><circle cx="50" cy="20" r="3.4"/></g>
+<g fill="none" stroke="url(#gg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M50 23v46M38 71h24M32 32h36M32 32l-7 14M32 32l7 14M68 32l-7 14M68 32l7 14M24 46h16a8 8 0 0 1-16 0zM60 46h16a8 8 0 0 1-16 0z"/></g></symbol></defs></svg>
+<div id="splash" role="dialog" aria-label="ترحيب"><div class="sp"><svg class="big" aria-hidden="true"><use href="#lg"/></svg><h1 class="gt">قانونك</h1><p>أهلاً بك في منصتك القانونية المصرية</p><small>القانون أسهل وأقرب إليك</small><button id="enter">ادخل إلى المنصة</button></div></div>
+<div class="app">
+<div id="ov"></div>
+<nav id="nv" aria-label="القائمة">
+<div class="logo"><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><div><b class="gt">قانونك</b><small>القانون أسهل وأقرب إليك</small></div></div>
+<button data-go="home" class="on"><i>🏛</i>الرئيسية</button>
+<button data-go="lib"><i>📚</i>المكتبة القانونية</button>
+<button data-go="ai"><i>🤖</i>المساعد الذكي</button>
+<button onclick="location.href='chat.html'"><i>💬</i>الاستشارة المباشرة</button>
+<button data-go="contact"><i>📞</i>تواصل معنا</button>
+<button data-go="about"><i>⚖</i>عن المنصة</button>
+<div class="tag">مع قانونك .. المعرفة القانونية في متناول الجميع</div>
+</nav>
+<main>
+<div class="mh"><button id="mb" aria-label="القائمة" aria-expanded="false" aria-controls="nv">☰</button><span class="brand"><svg aria-hidden="true"><use href="#lg"/></svg><b class="gt">قانونك</b></span><span style="width:44px"></span></div>
+<div class="top"><span class="badge">منصة التوعية القانونية المصرية</span><span>محتوى مبسط للتثقيف العام</span></div>
 
+<section id="home" class="sec on">
+<div class="hero gb">
+<div>
+<h1 class="gt">قانونك</h1>
+<p>القوانين المصرية بشرح مبسط وأمثلة من الواقع، ومساعد ذكي يجيب عن سؤالك في ثوانٍ.</p>
+<span class="slogan">المعرفة القانونية .. في متناول الجميع</span>
+<div class="ask"><input id="hq" placeholder="اسأل أي سؤال قانوني…" aria-label="سؤال"><button id="hgo">اسأل</button></div>
+</div>
+<svg class="scale" viewBox="0 0 300 330" aria-hidden="true"><defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#f0cf7a"/><stop offset="1" stop-color="#8a6a22"/></linearGradient></defs>
+<g fill="url(#s)" stroke="url(#s)" stroke-linecap="round"><circle cx="150" cy="38" r="11"/><rect x="144" y="50" width="12" height="236" rx="5"/><path d="M92 312h116l-14-26H106z"/><rect x="108" y="290" width="84" height="8" rx="4"/>
+<g class="beam"><rect x="30" y="58" width="240" height="9" rx="4.5"/><g fill="none" stroke-width="2"><path d="M42 66L12 190M42 66l60 124M258 66l-60 124M258 66l30 124"/></g><path d="M0 190h114c0 40-26 58-57 58S0 230 0 190z"/><path d="M186 190h114c0 40-26 58-57 58s-57-18-57-58z"/></g></g></svg>
+</div>
+<div class="stats">
+<button class="stat gb" data-go="lib"><b class="gt" id="nL" data-t="17">17</b><span>قانوناً مشروحاً</span></button>
+<button class="stat gb" data-go="lib"><b class="gt" id="nC" data-t="8">8</b><span>تصنيفات قانونية</span></button>
+<button class="stat gb" data-go="lib"><b class="gt" id="nE" data-t="17">17</b><span>مثالاً عملياً</span></button>
+<button class="stat gb" data-go="ai"><b class="gt">∞</b><span>أسئلة للمساعد الذكي</span></button>
+</div>
+<div class="grid">
+<button class="card gb c1" data-go="ai" data-ic="🤖"><h3>اسأل قانونك</h3><span>مساعد ذكي يجيب بأسلوب مهني مع مثال توضيحي</span><i class="go">ادخل الآن</i></button>
+<button class="card gb c2" data-go="lib" data-ic="📚"><h3>المكتبة القانونية</h3><span>أهم قوانين مصر مرتبة بالتصنيف والرقم والسنة</span><i class="go">ادخل الآن</i></button>
+<button class="card gb c3" data-go="lib" data-ic="💡"><h3>أمثلة عملية</h3><span>لكل قانون مثال واقعي يوضح كيف يُطبق</span><i class="go">ادخل الآن</i></button>
+<button class="card gb c4" data-go="ai" data-ic="🛡"><h3>اعرف حقوقك</h3><span>عمل، إيجار، أسرة، استهلاك: اسأل واعرف حقك</span><i class="go">ادخل الآن</i></button>
+</div>
+<div class="two">
+<div class="box gb"><h3>ماذا تجد في قانونك؟</h3><ul><li>مكتبة القوانين المدنية والجنائية والأسرة والعمل والتجارة</li><li>شرح مبسط بلغة الناس مع مثال لكل قانون</li><li>بحث سريع بالكلمة أو باسم القانون</li><li>مساعد ذكي يرد على أي سؤال قانوني</li></ul></div>
+<div class="box gb"><h3>تذكير مهم</h3><p style="margin:0;color:#d3d8ea">المنصة للتوعية ولا تغني عن استشارة محامٍ. القوانين تتعدل، فراجع النص الرسمي في الجريدة الرسمية قبل أي إجراء.</p></div>
+</div>
+<div class="strip gb"><b>تواصل معنا</b><a class="btn" href="chat.html">استشر المحامي الآن</a><a class="btn alt" href="https://wa.me/201004833284" target="_blank" rel="noopener">واتساب</a><a class="btn alt" href="tel:01113841210">اتصال</a><a class="btn alt" href="mailto:ahmdaymnalshryf0@gmail.com">بريد إلكتروني</a><button class="btn alt" data-go="contact">تقديم شكوى</button></div>
+<div class="ribbon gb">✦ قانونك .. معك في كل خطوة ✦</div>
+</section>
+
+<section id="lib" class="sec">
+<h2 class="pt gt">المكتبة القانونية المصرية</h2>
+<input id="q" type="search" placeholder="ابحث باسم القانون أو بكلمة مثل: عقد، إيجار، نفقة…" aria-label="بحث">
+<div class="chips" id="chips"></div>
+<div id="list"></div>
+<p class="note">الشرح مبسط للتوعية وليس بديلاً عن استشارة محامٍ. القوانين تُعدّل باستمرار، فراجع نصها المنشور في الجريدة الرسمية.</p>
+</section>
+
+<section id="ai" class="sec">
+<h2 class="pt gt">المساعد القانوني الذكي</h2>
+<div class="chips" id="sug"></div>
+<div id="chat" class="gb" aria-live="polite"><div class="m a">أهلاً بك في قانونك. اكتب سؤالك القانوني وسأجيبك استناداً إلى القوانين المصرية مع مثال توضيحي.</div></div>
+<div class="row"><input id="q2" placeholder="اكتب سؤالك هنا…" aria-label="سؤالك"><button id="send">إرسال</button></div>
+<p class="note">إجابات الذكاء الاصطناعي إرشادية وقد تخطئ؛ تأكد من النصوص الرسمية أو استشر محامياً قبل أي إجراء.</p>
+</section>
+
+<section id="contact" class="sec">
+<h2 class="pt gt">تواصل معنا</h2>
+<p style="margin:0;color:var(--mut)">للاستفسار أو الشكوى أو الاقتراح، اختر الوسيلة الأنسب لك.</p>
+<div class="cg">
+<a class="cc gb" href="https://wa.me/201004833284" target="_blank" rel="noopener"><b>💬 واتساب</b><span dir="ltr">01004833284</span><small>أسرع وسيلة للرد</small></a>
+<a class="cc gb" href="tel:01113841210"><b>📞 هاتف</b><span dir="ltr">01113841210</span><small>اتصال مباشر</small></a>
+<a class="cc gb" href="mailto:ahmdaymnalshryf0@gmail.com"><b>✉️ البريد الإلكتروني</b><span dir="ltr">ahmdaymnalshryf0@gmail.com</span><small>للشكاوى والمراسلات</small></a>
+</div>
+<div class="box gb" style="margin-top:18px"><h3>أرسل شكوى أو اقتراحاً</h3>
+<div class="fm"><input id="fn" placeholder="الاسم" aria-label="الاسم" autocomplete="name">
+<select id="ft" aria-label="نوع الرسالة"><option>شكوى</option><option>اقتراح</option><option>استفسار</option></select>
+<textarea id="ftx" placeholder="اكتب رسالتك هنا…" aria-label="الرسالة"></textarea>
+<div class="fb"><button class="btn" id="fw">إرسال عبر واتساب</button><button class="btn alt" id="fe">إرسال بالبريد</button></div></div></div>
+</section>
+
+<section id="about" class="sec">
+<h2 class="pt gt">عن المنصة</h2>
+<div class="box gb"><p style="margin:0">قانونك منصة توعية قانونية تعتمد على القوانين المصرية فقط، وتشرحها بلغة بسيطة مع أمثلة تطبيقية، وتدعمها بمساعد ذكي يجيب عن أسئلتك. محتوى المنصة للتثقيف العام ولا يُعد استشارة قانونية.</p></div>
+</section>
+</main>
+</div>
+<script>
+const L=[
+{c:"مدني",n:"القانون المدني",no:"131 لسنة 1948",s:"ينظم العقود والالتزامات والملكية والتعويض والتقادم. المادة 147: العقد شريعة المتعاقدين. المادة 163: كل خطأ سبب ضرراً للغير يلزم فاعله بالتعويض. المادة 374: يتقادم الالتزام عموماً بمرور 15 سنة.",e:"اشتريت سيارة بعقد موثق ثم تراجع البائع. العقد ملزم له، ويحق لك طلب التنفيذ أو التعويض عما أصابك من ضرر."},
+{c:"مدني",n:"قانون المرافعات المدنية والتجارية",no:"13 لسنة 1968",s:"يحدد إجراءات التقاضي: رفع الدعوى وإعلانها والاختصاص والمواعيد وطرق الطعن.",e:"فاتك ميعاد الطعن على حكم ابتدائي. سقوط الميعاد قد يُفقدك حق الاستئناف، لذلك تُحسب المواعيد بدقة من تاريخ الإعلان أو النطق حسب الحالة."},
+{c:"مدني",n:"قانون الإثبات في المواد المدنية والتجارية",no:"25 لسنة 1968",s:"يبين وسائل الإثبات: الكتابة والشهود والقرائن والإقرار واليمين، والأصل أن الالتزامات التي تزيد قيمتها على نصاب معين تُثبت بالكتابة.",e:"أقرضت صديقك مبلغاً كبيراً دون إيصال. يصعب إثباته بالشهود، فاحرص على سند مكتوب."},
+{c:"جنائي",n:"قانون العقوبات",no:"58 لسنة 1937",s:"يحدد الجرائم وعقوباتها، مثل السرقة (م 311) والنصب (م 336) وخيانة الأمانة (م 341) والقذف (م 303) والسب (م 306).",e:"شخص أوهمك باستثمار وهمي وأخذ مالك: هذا نصب يعاقب عليه القانون. وإذا سلّمته مالاً أمانة فبدّده فهي خيانة أمانة."},
+{c:"جنائي",n:"قانون الإجراءات الجنائية",no:"150 لسنة 1950",s:"ينظم التحقيق والقبض والتفتيش والحبس الاحتياطي والمحاكمة وضمانات المتهم.",e:"عند القبض عليك لك حق إبلاغ من تريد والاستعانة بمحامٍ أثناء التحقيق، وللتفتيش ضوابط يحددها القانون."},
+{c:"جنائي",n:"قانون مكافحة جرائم تقنية المعلومات",no:"175 لسنة 2018",s:"يجرّم الدخول غير المشروع على الأنظمة والمواقع، والاعتداء على البيانات، والاحتيال الإلكتروني، وانتهاك الخصوصية عبر الإنترنت.",e:"من ينشر صورة خاصة لشخص دون إذنه عبر وسائل التواصل قد يتعرض للمساءلة الجنائية."},
+{c:"أسرة",n:"قوانين الأحوال الشخصية",no:"25 لسنة 1929 و100 لسنة 1985",s:"تنظم الزواج والطلاق والنفقة والحضانة والرؤية والخلع وفق أحكام الشريعة والقوانين المنظمة.",e:"زوجة امتنع زوجها عن الإنفاق: يمكنها رفع دعوى نفقة أمام محكمة الأسرة، والنفقة تقدّر بحسب يسار الزوج وحاجة الزوجة."},
+{c:"أسرة",n:"قانون المواريث",no:"77 لسنة 1943",s:"يحدد الورثة وأنصبتهم في التركة بعد سداد الديون وتنفيذ الوصية في حدود الثلث.",e:"توفي رجل عن زوجة وولدين وبنت: تأخذ الزوجة الثمن، والباقي للأولاد للذكر مثل حظ الأنثيين."},
+{c:"عمل",n:"قانون العمل",no:"14 لسنة 2025 (حلّ محل 12 لسنة 2003)",s:"ينظم عقد العمل والأجور والإجازات وساعات العمل والفصل التعسفي وإصابات العمل. راجع أحكامه الانتقالية وتاريخ سريانه.",e:"فُصلت من عملك دون سبب مشروع: يمكنك اللجوء إلى لجنة التسوية أو المحكمة العمالية للمطالبة بالتعويض."},
+{c:"عمل",n:"قانون التأمينات الاجتماعية والمعاشات",no:"148 لسنة 2019",s:"يحدد اشتراكات التأمين وحقوق المعاش في الشيخوخة والعجز والوفاة وإصابات العمل.",e:"عامل أصيب أثناء العمل يستحق علاجاً وتعويضاً عن العجز وفق القانون، ويستمر حقه حتى لو لم يسجله صاحب العمل في التأمينات."},
+{c:"تجاري",n:"قانون التجارة",no:"17 لسنة 1999",s:"ينظم الأعمال التجارية والتاجر والشيك والكمبيالة والإفلاس والصلح الواقي منه.",e:"إصدار شيك دون رصيد كافٍ يعرّض صاحبه للمساءلة الجنائية بحسب أحكام القانون."},
+{c:"تجاري",n:"قانون حماية المستهلك",no:"181 لسنة 2018",s:"يمنح المستهلك حق الإعلام الصحيح والاستبدال والإصلاح والشكوى إلى جهاز حماية المستهلك، ويمنع الغش والإعلان المضلل.",e:"اشتريت جهازاً معيباً: لك حق الاستبدال أو الإصلاح أو رد الثمن خلال المدد المقررة، وقدّم شكوى للجهاز مع الفاتورة."},
+{c:"عقارات",n:"قوانين الإيجار",no:"49 لسنة 1977 و136 لسنة 1981 وتعديلاتهما",s:"تنظم العلاقة بين المالك والمستأجر. صدر تشريع حديث بشأن الإيجار القديم، فتأكد من أحدث نصوصه ومواعيد تنفيذه.",e:"مالك يريد زيادة الأجرة: يحكمها العقد والقانون المنطبق على عقدك (قديم أم جديد)، ولا يجوز الإخلاء إلا بحكم."},
+{c:"عقارات",n:"قانون تنظيم التصالح في مخالفات البناء",no:"187 لسنة 2023",s:"يضع شروط وإجراءات التصالح على مخالفات البناء مقابل رسوم تحددها اللجان المختصة.",e:"بنيت دوراً مخالفاً: يمكنك التقدم بطلب تصالح إذا استوفيت الشروط الإنشائية ودفعت المقابل."},
+{c:"ضرائب وبيانات",n:"قانون حماية البيانات الشخصية",no:"151 لسنة 2020",s:"يحمي بيانات الأفراد ويلزم الجهات بالحصول على الموافقة وتأمين البيانات.",e:"شركة جمعت بياناتك لتسويق منتج ثم باعتها: هذا قد يخالف اشتراط الموافقة، ولك حق الاعتراض."},
+{c:"ضرائب وبيانات",n:"قانون الضريبة على الدخل",no:"91 لسنة 2005",s:"ينظم الضريبة على دخل الأفراد والشركات والإعفاءات والإقرارات الضريبية.",e:"موظف دخله فوق حد الإعفاء تخصم الضريبة من راتبه بشرائح، وتُراعى الإعفاءات الشخصية."},
+{c:"دستوري",n:"دستور جمهورية مصر العربية",no:"2014 (معدّل 2019)",s:"أعلى وثيقة قانونية: يقرر الحقوق والحريات والفصل بين السلطات، ولا يجوز لقانون أن يخالفه.",e:"قانون يخالف حقاً دستورياً يمكن الطعن عليه بعدم الدستورية أمام المحكمة الدستورية العليا."}
+];
+const $=s=>document.querySelector(s);
+function go(id){document.querySelectorAll('.sec').forEach(e=>e.classList.toggle('on',e.id===id));document.querySelectorAll('nav [data-go]').forEach(b=>b.classList.toggle('on',b.dataset.go===id));scrollTo(0,0);menu(false);if(id==='home')countUp()}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+let cat="الكل";const cats=["الكل",...new Set(L.map(x=>x.c))];
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
+function draw(){const q=$('#q').value.trim();const box=$('#list');box.textContent='';
+L.filter(x=>(cat==="الكل"||x.c===cat)&&(!q||(x.n+x.s+x.e+x.no).includes(q))).forEach(x=>{
+const d=el('details'),s=el('summary',0,x.n);s.append(el('small',0,'رقم '+x.no));d.append(s);
+const b=el('div','body');b.append(el('p',0,x.s));const e=el('div','ex');e.append(el('b',0,'مثال: '),document.createTextNode(x.e));b.append(e);d.append(b);box.append(d)});
+if(!box.children.length)box.append(el('p','note','لا نتائج. جرّب كلمة أخرى أو اسأل المساعد الذكي.'))}
+cats.forEach(c=>{const b=el('button','chip'+(c===cat?' on':''),c);b.onclick=()=>{cat=c;document.querySelectorAll('#chips .chip').forEach(x=>x.classList.toggle('on',x.textContent===c));draw()};$('#chips').append(b)});
+$('#q').oninput=draw;draw();
+const SUG=["ما حقوقي إذا فُصلت من العمل؟","كيف أرفع دعوى نفقة؟","ما عقوبة النصب؟","كيف أسترد ثمن سلعة معيبة؟"];
+SUG.forEach(t=>{const b=el('button','chip',t);b.onclick=()=>{$('#q2').value=t;ask()};$('#sug').append(b)});
+const SYS="أنت «قانونك»، مساعد قانوني مصري محترف. أجب بالعربية الفصحى المبسطة، وبالاستناد إلى القوانين المصرية فقط (اذكر اسم القانون ورقمه وسنته والمادة إن كنت متأكداً منها، ولا تخترع أرقام مواد). نظّم الإجابة: 1) الخلاصة 2) السند القانوني 3) مثال توضيحي عملي 4) الخطوات العملية. نبّه بإيجاز إلى أن الإجابة إرشادية وأن القوانين قد تُعدّل ويُنصح بمراجعة محامٍ. إن كان السؤال خارج القانون المصري فاعتذر بلطف ووجّه الحديث لما يخدم المستخدم. القوانين المتاحة في المكتبة: "+L.map(x=>x.n+" "+x.no).join("؛ ");
+let busy=false,sampleP=null;
+function local(q){const w=q.split(/\s+/).filter(x=>x.length>2);const r=L.map(x=>({x,k:w.filter(t=>(x.n+x.s+x.e).includes(t)).length})).filter(o=>o.k).sort((a,b)=>b.k-a.k).slice(0,2);
+return r.length?r.map(o=>o.x.n+" ("+o.x.no+")\n"+o.x.s+"\nمثال: "+o.x.e).join("\n\n"):"لم أجد قانوناً مطابقاً في المكتبة. أعد صياغة السؤال بكلمات أوضح."}
+async function ask(){const q=$('#q2').value.trim();if(!q||busy)return;busy=true;$('#q2').value='';
+const c=$('#chat');c.append(el('div','m u',q));const a=el('div','m a','جارٍ التفكير…');c.append(a);c.scrollTop=c.scrollHeight;
+try{sampleP=sampleP||(window.claude&&claude.use?claude.use("sample"):Promise.resolve(null));const sm=await sampleP;
+if(!sm)throw 0;
+await sm([{role:"user",content:SYS+"\n\nسؤال المستخدم: "+q}],{cache:false,modelTier:"default",onText:({text})=>{a.textContent=text;c.scrollTop=c.scrollHeight}}).then(r=>{a.textContent=r.text})}
+catch(e){a.textContent="المساعد الذكي غير متاح الآن، وهذه أقرب نتائج من المكتبة:\n\n"+local(q)}
+busy=false}
+$('#nL').dataset.t=L.length;$('#nC').dataset.t=cats.length-1;$('#nE').dataset.t=L.length;
+function countUp(){const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;document.querySelectorAll('[data-t]').forEach(e=>{const t=+e.dataset.t;if(rm){e.textContent=t;return}const s0=performance.now();(function f(n){const p=Math.min((n-s0)/1100,1);e.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s0)})}
+const sp=$('#splash');let seen=null;try{seen=sessionStorage.getItem('sp')}catch(e){}
+function closeSp(){sp.classList.add('out');try{sessionStorage.setItem('sp','1')}catch(e){}setTimeout(()=>sp.remove(),700);countUp()}
+$('#enter').onclick=closeSp;
+const mb=$('#mb'),nv=$('#nv'),ov=$('#ov');
+function menu(o){nv.classList.toggle('open',o);ov.classList.toggle('show',o);mb.setAttribute('aria-expanded',o)}
+mb.onclick=()=>menu(!nv.classList.contains('open'));ov.onclick=()=>menu(false);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')menu(false)});
+function open2(u){const a=document.createElement('a');a.href=u;a.target='_blank';a.rel='noopener';document.body.append(a);a.click();a.remove()}
+function fmsg(){const t=$('#ft').value,m=$('#ftx').value.trim();if(!m){$('#ftx').focus();return null}return{t:t+' - منصة قانونك',b:'الاسم: '+($('#fn').value.trim()||'—')+'\nنوع الرسالة: '+t+'\n\n'+m}}
+$('#fw').onclick=()=>{const m=fmsg();if(m)open2('https://wa.me/201004833284?text='+encodeURIComponent(m.b))};
+$('#fe').onclick=()=>{const m=fmsg();if(m)open2('mailto:ahmdaymnalshryf0@gmail.com?subject='+encodeURIComponent(m.t)+'&body='+encodeURIComponent(m.b))};
+
+if(seen){sp.remove();countUp()}else{$('#enter').focus({preventScroll:true})}
+function hask(){const v=$('#hq').value.trim();go('ai');if(v){$('#q2').value=v;ask()}}$('#hgo').onclick=hask;$('#hq').onkeydown=e=>{if(e.key==='Enter')hask()};$('#send').onclick=ask;$('#q2').onkeydown=e=>{if(e.key==="Enter")ask()};
+</script>
+</body>
+</html>
