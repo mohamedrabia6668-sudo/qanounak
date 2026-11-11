@@ -3,19 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070e24">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="قانونك">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <title>الاستشارة المباشرة – قانونك</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=El+Messiri:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#050a18;--panel:#0a1330;--gold:#f0cf7a;--txt:#f5eedb;--mut:#a7b0c8}
 *{box-sizing:border-box}[hidden]{display:none!important}
 html,body{height:100%}
-body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1.7;background:radial-gradient(900px 500px at 85% -5%,#1d3a8a55,transparent 60%),radial-gradient(700px 500px at 0% 100%,#c9a24a26,transparent 60%),linear-gradient(#070e24,var(--bg));padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.gt{background:linear-gradient(180deg,#fff3c4,#f0cf7a 45%,#b8892f);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:'Reem Kufi',Cairo,sans-serif}
+body{margin:0;color:var(--txt);font-family:Tajawal,Tahoma,sans-serif;line-height:1.7;background:radial-gradient(900px 500px at 85% -5%,#1d3a8a55,transparent 60%),radial-gradient(700px 500px at 0% 100%,#c9a24a26,transparent 60%),linear-gradient(#070e24,var(--bg));padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.gt{background:linear-gradient(180deg,#fff3c4,#f0cf7a 45%,#b8892f);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:'El Messiri',Tajawal,sans-serif}
 .gb{border:1px solid transparent;background:linear-gradient(var(--c,#0b1534),var(--c,#0b1534)) padding-box,linear-gradient(135deg,#f9e6a0,#8a6a22 45%,#f0cf7a) border-box}
 .hd{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #c9a24a55;background:#070e26ee;height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}.brand svg{width:40px;height:40px}.brand b{font-size:28px;line-height:1}
 #who{margin-inline-start:auto;color:var(--mut);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.btn{border:0;border-radius:12px;padding:10px 22px;font:800 16px Cairo;color:#1a1305;cursor:pointer;background:linear-gradient(90deg,#f6dc8c,#c9a24a)}
+.btn{border:0;border-radius:12px;padding:10px 22px;font:800 16px Tajawal;color:#1a1305;cursor:pointer;background:linear-gradient(90deg,#f6dc8c,#c9a24a)}
 .btn.alt{background:#0b1536;color:var(--txt);border:1px solid #c9a24a88;padding:6px 14px;font-size:14px}
 .btn:disabled{opacity:.6}
 :is(button,input,textarea,a):focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -23,20 +29,20 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 .card{width:min(440px,100%);border-radius:24px;padding:26px;--c:#0b1740}
 .card h1{margin:0;font-size:38px;text-align:center}.card p.s{text-align:center;color:var(--mut);margin:2px 0 14px}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
-.tabs button{padding:9px;border-radius:12px;border:1px solid #c9a24a88;background:#0b1536;color:var(--txt);font:700 15px Cairo;cursor:pointer}
+.tabs button{padding:9px;border-radius:12px;border:1px solid #c9a24a88;background:#0b1536;color:var(--txt);font:700 15px Tajawal;cursor:pointer}
 .tabs button.on{background:linear-gradient(90deg,#f6dc8c,#c9a24a);color:#1a1305;border-color:transparent}
 .f{display:grid;gap:10px}
-.f input,#tx{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Cairo}
-.lnk{background:none;border:0;color:var(--gold);cursor:pointer;font:600 14px Cairo;text-decoration:underline;justify-self:center}
+.f input,#tx{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Tajawal}
+.lnk{background:none;border:0;color:var(--gold);cursor:pointer;font:600 14px Tajawal;text-decoration:underline;justify-self:center}
 .note{color:var(--mut);font-size:12.5px;text-align:center;margin:10px 0 0}
 #cfg{margin:20px auto;max-width:640px;padding:18px;border-radius:16px;background:#3b1d1d;border:1px solid #e07070}
 #app{display:flex;flex-direction:column;height:calc(100dvh - 64px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
 .wrap{flex:1;min-height:0;display:grid;grid-template-columns:340px 1fr}
 #lst{overflow:auto;border-inline-end:1px solid #c9a24a44;background:#08102a}
-.ci{display:flex;gap:10px;align-items:center;width:100%;text-align:start;padding:12px 14px;background:none;border:0;border-bottom:1px solid #ffffff10;color:var(--txt);font-family:Cairo;cursor:pointer}
+.ci{display:flex;gap:10px;align-items:center;width:100%;text-align:start;padding:12px 14px;background:none;border:0;border-bottom:1px solid #ffffff10;color:var(--txt);font-family:Tajawal;cursor:pointer}
 .ci:hover,.ci.on{background:#14214a}
 .ci .av{flex:none}.ci .t{flex:1;min-width:0}.ci b,.ci small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ci small{color:var(--mut)}
-.bd{background:var(--gold);color:#1a1305;border-radius:99px;min-width:24px;height:24px;display:grid;place-items:center;font:800 13px Cairo;padding:0 6px}
+.bd{background:var(--gold);color:#1a1305;border-radius:99px;min-width:24px;height:24px;display:grid;place-items:center;font:800 13px Tajawal;padding:0 6px}
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,#f6dc8c,#8a6a22);color:#1a1305;font-weight:800}
 #pane{display:flex;flex-direction:column;min-height:0;min-width:0}
 .ph{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0b1636;border-bottom:1px solid #c9a24a44}
@@ -58,20 +64,26 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 #lst{display:flex;flex-direction:column;min-height:0;overflow:hidden}#items{overflow:auto;flex:1}.lh{padding:10px 12px;border-bottom:1px solid #c9a24a44}.lh .btn{width:100%;padding:9px}
 .gbn{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:8px 16px;background:#2a2410;border-bottom:1px solid #c9a24a66;font-size:14px}
 .b strong{display:block;font-size:12.5px;color:var(--gold)}.tg{font-style:normal;background:var(--gold);color:#1a1305;border-radius:99px;font-size:10.5px;padding:0 8px;margin-inline-start:6px;font-weight:800}
-.tl{display:flex;gap:10px;justify-content:flex-end;margin-top:2px}.tl button{background:none;border:0;color:var(--gold);font:600 12px Cairo;cursor:pointer;padding:0;text-decoration:underline}.tl button.dn{color:#ff9d9d}
+.tl{display:flex;gap:10px;justify-content:flex-end;margin-top:2px}.tl button{background:none;border:0;color:var(--gold);font:600 12px Tajawal;cursor:pointer;padding:0;text-decoration:underline}.tl button.dn{color:#ff9d9d}
 #dl{margin-inline-start:auto;padding:4px 12px;font-size:13px;color:#ff9d9d;border-color:#ff9d9d88}
 .sm{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:#000a}
 .sp{width:min(520px,100%);max-height:88dvh;overflow:auto;border-radius:22px;padding:20px;--c:#0b1740}
 .sp h2{margin:0 0 4px;font-size:26px}.sp .s{color:var(--mut);font-size:13.5px;margin:0 0 12px}
-.sp .f select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Cairo}
+.sp .f select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #c9a24a88;background:#070e26;color:var(--txt);font:16px Tajawal}
 .sr{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ffffff14}
 .sr .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:start}
 .sr em{font-style:normal;background:var(--gold);color:#1a1305;border-radius:99px;font-size:11px;padding:0 10px;font-weight:800;flex:none}
-.sr button{background:none;border:0;color:#ff9d9d;font:600 13px Cairo;cursor:pointer;text-decoration:underline;flex:none}
+.sr button{background:none;border:0;color:#ff9d9d;font:600 13px Tajawal;cursor:pointer;text-decoration:underline;flex:none}
 #toast{position:fixed;inset-inline:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));margin:auto;width:fit-content;max-width:90%;background:#1b2c63;border:1px solid var(--gold);padding:8px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
 #toast.on{opacity:1}
 @media(max-width:760px){.wrap{grid-template-columns:1fr}.wrap #pane{display:none}.wrap.show #lst{display:none}.wrap.show #pane{display:flex}#bk{display:block}.b{max-width:88%}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.adv2{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #c9a24a;flex:none}
+.ap{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:10px;text-align:center}
+.ap img{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid #c9a24a;box-shadow:0 0 30px #f0cf7a55}
+.ap b{font-family:'El Messiri',Tajawal,sans-serif;font-size:20px;color:var(--gold);line-height:1.3}.ap small{color:var(--mut)}
+.av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
 </style>
 </head>
 <body>
@@ -83,6 +95,7 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 
 <section id="auth" hidden>
 <div class="card gb">
+<div class="ap"><img src="img/advisor.jpg" alt="المستشار أحمد أيمن الشريف" width="96" height="96"><b>المستشار أحمد أيمن الشريف</b><small>للمحاماة والاستشارات القانونية</small></div>
 <h1 class="gt">استشارة المحامي</h1><p class="s">سجّل دخولك لتطرح استفسارك ويجيبك المستشار أو أي عضو مسجل</p>
 <button class="btn gg2" id="gl" type="button"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>المتابعة بحساب جوجل</button>
 <div class="sep">أو بالبريد الإلكتروني</div>
@@ -104,7 +117,7 @@ body{margin:0;color:var(--txt);font-family:Cairo,Tahoma,sans-serif;line-height:1
 <div class="wrap" id="wrap">
 <aside id="lst"><div class="lh"><button class="btn" id="nq" type="button">＋ استفسار جديد</button></div><div id="items"></div></aside>
 <div id="pane">
-<div class="ph"><button id="bk" aria-label="رجوع">→</button><div class="av">⚖</div><div><b id="pt">استفسار جديد</b><small id="ps"></small></div><button class="btn alt" id="dl" type="button" hidden>🗑 حذف الاستفسار</button></div>
+<div class="ph"><button id="bk" aria-label="رجوع">→</button><img class="adv2" src="img/advisor.jpg" alt="" width="38" height="38"><div><b id="pt">استفسار جديد</b><small id="ps"></small></div><button class="btn alt" id="dl" type="button" hidden>🗑 حذف الاستفسار</button></div>
 <div id="ms" aria-live="polite"></div>
 <div class="cp"><textarea id="tx" rows="1" placeholder="اكتب رسالتك…" aria-label="الرسالة" maxlength="2000"></textarea><button id="sd" aria-label="إرسال">➤</button></div>
 </div>
@@ -255,5 +268,6 @@ run($('#sa'),async()=>{try{await db.doc('staff/'+em).set({email:em,role:$('#sr_'
 $('#se').value='';toast('تمت الإضافة. يدخل بنفس البريد ليصبح مستشاراً.')}
 catch(x){console.error(x);toast('تعذرت الإضافة. انشر القواعد الجديدة في Firebase.')}})};
 </script>
+<script>if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});</script>
 </body>
 </html>

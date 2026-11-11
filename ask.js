@@ -1,5 +1,3 @@
-// Vercel Serverless Function: /api/ask (Google Gemini - مجاني)
-// المفاتيح السرية تبقى هنا على السيرفر فقط (Environment Variables) ولا تظهر في المتصفح.
 const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY || "AIzaSyBhxpA-EXeFiv691TulagesWPGf7v8vvlQ";
 const MODELS = [process.env.GEMINI_MODEL || "gemini-flash-latest", "gemini-flash-lite-latest"];
 
