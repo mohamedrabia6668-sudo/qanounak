@@ -1,8 +1,8 @@
-const V = 'qanonak-v1';
-const CORE = ['./', 'index.html', 'chat.html', 'manifest.webmanifest', 'img/advisor.jpg', 'img/sign.jpg', 'img/photo2.jpg', 'img/icon-192.png', 'img/icon-512.png'];
+const V = 'qanonak-v2';
+const CORE = ['./', 'index.html', 'chat.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(V).then(c => Promise.allSettled(CORE.map(u => c.add(u)))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V).map(k => caches.delete(k)))).then(() => self.clients.claim()));
