@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=El+Messiri:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#050a18;--panel:#0a1330;--gold:#f0cf7a;--gold2:#c9a24a;--gold3:#8a6a22;--txt:#f5eedb;--mut:#a7b0c8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 body{margin:0;color:var(--txt);font-family:Tajawal,Tahoma,sans-serif;line-height:1.8;background:
 radial-gradient(900px 500px at 85% -5%,#1d3a8a55,transparent 60%),radial-gradient(700px 500px at 0% 100%,#c9a24a26,transparent 60%),
 repeating-linear-gradient(90deg,#ffffff05 0 2px,transparent 2px 140px),linear-gradient(#070e24,var(--bg));background-attachment:fixed}
@@ -111,8 +111,8 @@ summary small{color:var(--mut);font-weight:400;margin-inline-start:10px;font-siz
 .strip b{color:var(--gold);font:600 20px 'El Messiri';width:100%;text-align:center}
 @media(max-width:1000px){
 .app{grid-template-columns:1fr}
-nav{position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(300px,84vw);height:auto;z-index:90;display:block;padding:calc(18px + env(safe-area-inset-top,0px)) 14px calc(18px + env(safe-area-inset-bottom,0px));border-inline-end:1px solid #c9a24a66;background:#070e26;transform:translateX(105%);transition:transform .3s;overflow:auto}
-nav.open{transform:none;box-shadow:-20px 0 60px #000c}
+nav{position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(300px,84vw);height:auto;z-index:90;display:block;padding:calc(18px + env(safe-area-inset-top,0px)) 14px calc(18px + env(safe-area-inset-bottom,0px));border-inline-end:1px solid #c9a24a66;background:#070e26;transform:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility .25s;overflow:auto}
+nav.open{opacity:1;visibility:visible;pointer-events:auto;box-shadow:-20px 0 60px #000c}
 main{padding:14px 14px 30px}
 .mh{display:flex;justify-content:space-between;position:sticky;top:0;z-index:40;margin:-14px -14px 14px;padding:10px 14px;background:#050a18ee;backdrop-filter:blur(10px);border-bottom:1px solid #c9a24a44}
 .top span:last-child{display:none}.top{justify-content:center}
@@ -177,6 +177,7 @@ nav button i{width:30px;height:30px;font-size:15px;border-radius:9px}
 .hero h1{font-size:clamp(46px,14vw,72px)}
 .adv img.sign{max-width:340px}
 }
+@media(max-width:1000px){.mh{gap:6px}.mh .accw{gap:4px;min-width:0}.mh .acc{max-width:104px;padding:6px 10px;font-size:13px}.mh .accw .out{font-size:12px;padding:0}.mh .brand b{font-size:26px}}
 @media(max-width:380px){.grid{grid-template-columns:1fr}.gcard h1{font-size:40px}}
 </style>
 </head>
